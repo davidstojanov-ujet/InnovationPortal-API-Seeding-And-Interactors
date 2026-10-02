@@ -1,0 +1,53 @@
+{
+  "evaluator": {
+    "username": "${EVALUATOR_USERNAME}",
+    "password": "${EVALUATOR_PASSWORD}"
+  },
+  "titlePrefix": "AUTO-P1-APPROVAL",
+  "statusFilterValues": {
+    "Pending Approval": "1",
+    "Approved": "2",
+    "Rejected": "3",
+    "Hold": "4",
+    "All": "6"
+  },
+  "evaluationStatusValues": {
+    "Approve": "2",
+    "Reject": "3",
+    "Hold": "4"
+  },
+  "ratingQuestions": [
+    { "index": 0, "name": "Innovation Index", "weightPercent": "TODO(Q22)" },
+    { "index": 1, "name": "Potential Business Impact", "weightPercent": "TODO(Q22)" },
+    { "index": 2, "name": "Depth of Idea", "weightPercent": "TODO(Q22)" },
+    { "index": 3, "name": "Feasibility of the Idea to Full solution", "weightPercent": "TODO(Q22)" },
+    { "index": 4, "name": "End customer benefit / Domain / AI focus", "weightPercent": "TODO(Q22)" }
+  ],
+  "approve": {
+    "testCaseId": "TC-LEGACY-116",
+    "ratings": [7, 7, 7, 7, 7],
+    "impact": {
+      "key": "cost-savings-for-customers",
+      "amount": "1000",
+      "description": "Automation P1 perceived benefit"
+    },
+    "businessUseCase": "Automation P1 business use case",
+    "reason": "Automation P1 approval",
+    "expectedOverallScore": "TODO(Q22): formula and rounding"
+  },
+  "draftWithoutImpact": {
+    "testCaseId": "TC-LEGACY-029",
+    "ratings": [5, 5, 5, 5, 5],
+    "expectedBehaviour": "TODO(Q16)"
+  },
+  "rejectWithoutComment": {
+    "testCaseId": "TC-NEW-013",
+    "reason": "",
+    "expectedMessage": "TODO(Q24): message shown when the reason is empty"
+  },
+  "defaultEvaluators": {
+    "testCaseId": "TC-NEW-011",
+    "clientVertical": "TODO(Q23): vertical and its default evaluator",
+    "orgDepartment": "TODO(Q23): department and its default evaluator"
+  }
+}

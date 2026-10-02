@@ -1,0 +1,41 @@
+{
+  "evaluator": {
+    "username": "${EVALUATOR_USERNAME}",
+    "password": "${EVALUATOR_PASSWORD}"
+  },
+  "projectManager": {
+    "username": "${PROJECT_MANAGER_USERNAME}",
+    "password": "${PROJECT_MANAGER_PASSWORD}"
+  },
+  "routes": {
+    "clientProgress": "/actual_benefit_realization/{id}",
+    "orgProgress": "/actual_benefit_accelerators/{id}"
+  },
+  "customerStatusOptions": [
+    "In Progress",
+    "Proposed to Customer",
+    "Accepted",
+    "Rejected",
+    "On Hold",
+    "Implemented",
+    "POC Completed",
+    "No Action"
+  ],
+  "orgIdeaStatusOptions": ["In Progress", "On Hold", "Rejected", "POC Completed"],
+  "actualBenefitOutcomes": ["Business improvement", "Framework enhancement", "Process improvement"],
+  "implementedLock": {
+    "testCaseId": "TC-LEGACY-101",
+    "ideaId": "TODO(Q20): approved Client idea in Implemented status",
+    "expectedOnlyOption": "Implemented"
+  },
+  "customerStatusList": {
+    "testCaseId": "TC-LEGACY-107",
+    "ideaId": "TODO(Q21): approved Client idea",
+    "expectedOptions": "TODO(Q21): confirm 7 options vs the 8 shown in the Approval Dashboard filter"
+  },
+  "projectManagerPrivileges": {
+    "testCaseId": "TC-NEW-022",
+    "ideaId": "TODO(Q25): idea on the PM's project",
+    "expected": "TODO(Q25)"
+  }
+}

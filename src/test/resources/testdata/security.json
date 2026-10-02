@@ -1,0 +1,11 @@
+{
+  "employeeOnly": {
+    "username": "${EMPLOYEE_ONLY_USERNAME}",
+    "password": "${EMPLOYEE_ONLY_PASSWORD}"
+  },
+  "directUrl": {
+    "testCaseId": "TC-NEW-035",
+    "route": "/approval-dashboard",
+    "expectedBehaviour": "TODO(Q28): redirect, access-denied text, or empty grid"
+  }
+}

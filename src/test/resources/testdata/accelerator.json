@@ -1,0 +1,43 @@
+{
+  "admin": {
+    "username": "${ADMIN_USERNAME}",
+    "password": "${ADMIN_PASSWORD}"
+  },
+  "verticalHead": {
+    "username": "${VERTICAL_HEAD_USERNAME}",
+    "password": "${VERTICAL_HEAD_PASSWORD}"
+  },
+  "practiceHead": {
+    "username": "${PRACTICE_HEAD_USERNAME}",
+    "password": "${PRACTICE_HEAD_PASSWORD}"
+  },
+  "departmentHead": {
+    "username": "${DEPARTMENT_HEAD_USERNAME}",
+    "password": "${DEPARTMENT_HEAD_PASSWORD}"
+  },
+  "routes": {
+    "dashboard": "/accelerator-dashboard",
+    "ipForm": "/accelerator-form/{id}",
+    "ideaReports": "/idea-report"
+  },
+  "ipStatusOptions": ["Pending", "Approved", "Rejected"],
+  "ipTypes": ["Framework", "Tool", "Libraries", "Best Practice"],
+  "businessImpacts": ["Improved Productivity", "Customer Satisfaction", "Cost Reduction"],
+  "clientAccelerator": {
+    "testCaseId": "TC-NEW-025",
+    "ideaId": "TODO(Q26): Client idea in Implemented status",
+    "practice": "TODO(Q26): e.g. Digital & Platforms",
+    "rolesThatSeeRadio": "TODO(Q3/Q26)"
+  },
+  "orgAccelerator": {
+    "testCaseId": "TC-NEW-026",
+    "ideaId": "TODO(Q26): Org idea in POC Completed status",
+    "practice": "TODO(Q26)",
+    "rolesThatSeeRadio": "TODO(Q3/Q26)"
+  },
+  "notificationsAndReport": {
+    "testCaseId": "TC-NEW-027",
+    "notificationCheck": "TODO(Q27)",
+    "reportColumn": "TODO(Q27)"
+  }
+}

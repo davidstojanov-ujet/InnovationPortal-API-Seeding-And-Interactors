@@ -1,0 +1,53 @@
+{
+  "user": {
+    "username": "${EMPLOYEE_USERNAME}",
+    "password": "${EMPLOYEE_PASSWORD}"
+  },
+  "titlePrefix": "AUTO-P1-SUBMIT",
+  "clientIdea": {
+    "testCaseId": "TC-LEGACY-001",
+    "innovationType": "Client Initiative",
+    "customerName": "TODO(Q5): customer assigned to the account, e.g. AMDOCS",
+    "projectName": "TODO(Q5): project of that customer, e.g. AMDOC112",
+    "innovationCategory": "Project area specific Improvement",
+    "domains": ["Solution Architecture & Technology Solutions"],
+    "summary": "Automation P1 idea - brief description",
+    "innovationDetails": "Automation P1 idea - potential solution",
+    "confidential": "No",
+    "impacts": [
+      {
+        "key": "cost-savings-for-customers",
+        "label": "Cost savings for customers",
+        "amount": "1000",
+        "description": "Automation P1 impact description"
+      }
+    ],
+    "businessUseCase": "Automation P1 business use case",
+    "expectedInitialStatus": "Pending Approval"
+  },
+  "orgIdea": {
+    "testCaseId": "TC-LEGACY-004",
+    "innovationType": "Organisation Initiative",
+    "department": "TODO(Q6): department, one of HR, Finance, IT Support, ...",
+    "innovationCategory": "Good to have Generic solution/Tool/Framework",
+    "domains": ["Solution Architecture & Technology Solutions"],
+    "summary": "Automation P1 org idea - brief description",
+    "innovationDetails": "Automation P1 org idea - potential solution",
+    "confidential": "No",
+    "impacts": [
+      {
+        "key": "delivery-led-growth",
+        "label": "Delivery led Growth",
+        "amount": "1000",
+        "description": "Automation P1 impact description"
+      }
+    ],
+    "businessUseCase": "Automation P1 business use case",
+    "expectedInitialStatus": "Pending Approval"
+  },
+  "routes": {
+    "submit": "/idea-submit",
+    "myIdeas": "/my-idea-list",
+    "ideaDetailPattern": "/idea/(\\d+)"
+  }
+}

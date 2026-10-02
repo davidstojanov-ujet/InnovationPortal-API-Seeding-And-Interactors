@@ -1,0 +1,32 @@
+{
+  "user": {
+    "username": "${EMPLOYEE_USERNAME}",
+    "password": "${EMPLOYEE_PASSWORD}"
+  },
+  "titlePrefix": "AUTO-P1-VALIDATION",
+  "limits": {
+    "titleMaxLength": 128,
+    "summaryMaxLength": 500,
+    "innovationDetailsMaxLength": 500,
+    "businessUseCaseMaxLength": 500,
+    "impactAmountMaxLength": 10,
+    "impactDescriptionMaxLength": 150,
+    "maxAttachments": 3,
+    "maxAttachmentSizeMb": 15,
+    "maxDomains": "TODO(Q9): not shown in the UI (sheet says 1-5)"
+  },
+  "allowedAttachmentTypes": ["pdf", "png", "jpg", "jpeg", "msg", "xls", "xlsx", "txt", "ppt", "pptx", "csv", "doc", "docx", "oft"],
+  "invalidAttachmentType": "TODO(Q9): a file type not in allowedAttachmentTypes, e.g. .exe",
+  "clientForm": {
+    "testCaseId": "TC-LEGACY-007",
+    "innovationType": "Client Initiative",
+    "mandatoryFields": ["title", "customerName", "projectName", "innovationCategory", "domain", "confidential", "impactOfIdea"],
+    "expectedMessages": "TODO(Q9): exact validation message texts"
+  },
+  "orgForm": {
+    "testCaseId": "TC-LEGACY-008",
+    "innovationType": "Organisation Initiative",
+    "mandatoryFields": ["title", "department", "innovationCategory", "domain", "confidential", "impactOfIdea"],
+    "expectedMessages": "TODO(Q9): exact validation message texts"
+  }
+}

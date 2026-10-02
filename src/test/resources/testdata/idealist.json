@@ -1,0 +1,28 @@
+{
+  "employee": {
+    "username": "${EMPLOYEE_USERNAME}",
+    "password": "${EMPLOYEE_PASSWORD}"
+  },
+  "evaluator": {
+    "username": "${EVALUATOR_USERNAME}",
+    "password": "${EVALUATOR_PASSWORD}"
+  },
+  "routes": {
+    "ideaList": "/dashboard/all_idea_list"
+  },
+  "approvedNonConfidentialIdea": {
+    "testCaseId": "TC-LEGACY-081",
+    "title": "TODO(Q17): title of a known approved, non-confidential idea",
+    "expectedVisible": true
+  },
+  "approvedConfidentialIdea": {
+    "testCaseId": "TC-LEGACY-082",
+    "title": "TODO(Q17): title of a known approved, confidential idea",
+    "expectedVisible": false
+  },
+  "approverConfidentialChoice": {
+    "testCaseId": "TC-LEGACY-089",
+    "confidential": "Yes",
+    "note": "TODO(Q19): no approver Confidential control found on the Evaluation page"
+  }
+}
