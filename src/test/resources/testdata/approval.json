@@ -4,6 +4,7 @@
     "password": "${EVALUATOR_PASSWORD}"
   },
   "titlePrefix": "AUTO-P1-APPROVAL",
+  "defaultStatusFilter": "Pending Approval",
   "statusFilterValues": {
     "Pending Approval": "1",
     "Approved": "2",
@@ -33,21 +34,24 @@
     },
     "businessUseCase": "Automation P1 business use case",
     "reason": "Automation P1 approval",
+    "expectedStatusAfterSubmit": "Approved",
     "expectedOverallScore": "TODO(Q22): formula and rounding"
   },
   "draftWithoutImpact": {
     "testCaseId": "TC-LEGACY-029",
     "ratings": [5, 5, 5, 5, 5],
-    "expectedBehaviour": "TODO(Q16)"
+    "reason": "Automation P1 draft evaluation",
+    "expectedStatusAfterDraft": "Pending Approval"
   },
   "rejectWithoutComment": {
     "testCaseId": "TC-NEW-013",
-    "reason": "",
+    "reason": "Automation P1 rejection reason",
     "expectedMessage": "TODO(Q24): message shown when the reason is empty"
   },
   "defaultEvaluators": {
     "testCaseId": "TC-NEW-011",
-    "clientVertical": "TODO(Q23): vertical and its default evaluator",
-    "orgDepartment": "TODO(Q23): department and its default evaluator"
+    "orgDepartmentSource": "committee page default Evaluator of submit.json orgIdea.department",
+    "clientVerticalSource": "committee page default Evaluator of a Delivery Unit (DU) committee",
+    "clientVertical": "TODO(Q23): the customer's vertical (DU) is not shown in the app"
   }
 }

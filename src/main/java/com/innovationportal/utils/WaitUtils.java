@@ -57,6 +57,11 @@ public class WaitUtils {
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
+    /** Waits until an element found earlier is removed from the DOM, e.g. a container replaced by AJAX. */
+    public boolean waitForStale(WebElement element) {
+        return wait.until(ExpectedConditions.stalenessOf(element));
+    }
+
     /** Waits until the element is present and enabled (it may still be covered by another element). */
     public WebElement waitForEnabled(By locator) {
         return wait.until(driver -> {

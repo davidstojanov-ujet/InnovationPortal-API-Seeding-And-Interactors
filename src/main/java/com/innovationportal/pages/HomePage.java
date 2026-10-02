@@ -1,5 +1,6 @@
 package com.innovationportal.pages;
 
+import com.innovationportal.config.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -15,6 +16,12 @@ public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         super(driver);
+    }
+
+    /** Opens the landing page directly (the configured base URL). */
+    public HomePage open() {
+        driver.get(ConfigReader.baseUrl());
+        return this;
     }
 
     /** True once the landing page heading is visible (waits up to the configured timeout). */

@@ -15,6 +15,7 @@ public class IdeaDetailPage extends BasePage {
 
     private final By detailForm = By.id("idea-info-page");
     private final By innovationStatus = By.cssSelector("#idea-info-page .innovation_status_val .status_label");
+    private final By evaluateLink = By.cssSelector("a[href$='/evaluation']");
 
     public IdeaDetailPage(WebDriver driver) {
         super(driver);
@@ -42,5 +43,11 @@ public class IdeaDetailPage extends BasePage {
 
     public String getInnovationStatus() {
         return getText(innovationStatus).trim();
+    }
+
+    /** Opens the Evaluation page ({@code /idea/<id>/evaluation}) for this idea. */
+    public EvaluationPage clickEvaluate() {
+        click(evaluateLink);
+        return new EvaluationPage(driver);
     }
 }
