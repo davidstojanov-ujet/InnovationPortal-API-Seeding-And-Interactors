@@ -50,7 +50,31 @@ Automated UI regression tests for the Innovation Portal, covering the 18 Priorit
 
 ## How to run
 
-_Placeholder — will be documented once the framework is in place._
+The test account comes from the `EMPLOYEE_*` environment variables listed in [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md). Set them in your shell; never commit them.
+
+| Goal | Command |
+|------|---------|
+| Compile only | `mvn clean test-compile` |
+| Run all tests | `mvn clean test` |
+| Only P1 tests | `mvn test -Dgroups=P1` |
+| P1 **and** smoke | `mvn test -Dgroups="P1 & smoke"` |
+| Skip work-in-progress tests | `mvn test -DexcludedGroups=wip` |
+| Headless / headed browser | `mvn test -Dheadless=true` (default) / `-Dheadless=false` |
+| Choose the environment | `mvn test -Denv=<env>` (reads `<env>.baseUrl` from `src/test/resources/config/config.properties`) |
+
+Options can be combined, e.g. `mvn test -Dgroups="P1 & smoke" -DexcludedGroups=wip -Dheadless=true -Denv=test`.
+`-Dgroups` / `-DexcludedGroups` take JUnit 5 tag expressions (`&`, `|`, `!`). Tags are set with `@Tag` (`P1`, `smoke`, one per feature).
+Other overrides: `-Dbrowser=chrome|firefox|edge`, `-DbaseUrl=<url>`.
+
+Tests run one at a time. Parallel execution is off in `src/test/resources/junit-platform.properties`, which documents how to turn it on later.
+
+### Reports
+
+- **Allure**: raw results are written to `target/allure-results`.
+  - `mvn allure:report` builds the HTML report in `target/site/allure-maven-plugin`.
+  - `mvn allure:serve` builds the report and opens it in a browser.
+- **Surefire**: plain-text and XML reports in `target/surefire-reports`.
+- **Failures**: `TestLifecycleExtension` (registered on `BaseTest`) attaches a screenshot and the current URL to the Allure result of a failed test. The PNG is also saved in `target/screenshots`.
 
 ## Running in Barko
 
