@@ -1,0 +1,6 @@
+{
+  "employee": {
+    "username": "${EMPLOYEE_USERNAME}",
+    "password": "${EMPLOYEE_PASSWORD}"
+  }
+}
