@@ -1,5 +1,7 @@
 # Project context: InnovationPortalSelenium
 
+For any test implementation, also read docs/AI_CONVENTIONS.md.
+
 Every task in this repository must follow these rules. Read this file before doing any work.
 
 ## Project facts
