@@ -24,11 +24,12 @@ public final class DriverFactory {
         String browser = ConfigReader.browser().toLowerCase(Locale.ROOT);
         boolean headless = ConfigReader.headless();
         String windowSize = ConfigReader.windowSize();
+        boolean acceptInsecureCerts = ConfigReader.acceptInsecureCerts();
 
         WebDriver driver = switch (browser) {
-            case "chrome", "chromium" -> new ChromeDriver(chromeOptions(headless, windowSize));
-            case "edge" -> new EdgeDriver(edgeOptions(headless, windowSize));
-            case "firefox" -> new FirefoxDriver(firefoxOptions(headless, windowSize));
+            case "chrome", "chromium" -> new ChromeDriver(chromeOptions(headless, windowSize, acceptInsecureCerts));
+            case "edge" -> new EdgeDriver(edgeOptions(headless, windowSize, acceptInsecureCerts));
+            case "firefox" -> new FirefoxDriver(firefoxOptions(headless, windowSize, acceptInsecureCerts));
             default -> throw new IllegalArgumentException(
                     "Unsupported browser '" + browser + "'; use chrome, chromium, firefox or edge");
         };
@@ -36,8 +37,9 @@ public final class DriverFactory {
         return driver;
     }
 
-    private static ChromeOptions chromeOptions(boolean headless, String windowSize) {
+    private static ChromeOptions chromeOptions(boolean headless, String windowSize, boolean acceptInsecureCerts) {
         ChromeOptions options = new ChromeOptions();
+        options.setAcceptInsecureCerts(acceptInsecureCerts);
         if (headless) {
             options.addArguments("--headless=new");
         }
@@ -46,8 +48,9 @@ public final class DriverFactory {
         return options;
     }
 
-    private static EdgeOptions edgeOptions(boolean headless, String windowSize) {
+    private static EdgeOptions edgeOptions(boolean headless, String windowSize, boolean acceptInsecureCerts) {
         EdgeOptions options = new EdgeOptions();
+        options.setAcceptInsecureCerts(acceptInsecureCerts);
         if (headless) {
             options.addArguments("--headless=new");
         }
@@ -56,8 +59,9 @@ public final class DriverFactory {
         return options;
     }
 
-    private static FirefoxOptions firefoxOptions(boolean headless, String windowSize) {
+    private static FirefoxOptions firefoxOptions(boolean headless, String windowSize, boolean acceptInsecureCerts) {
         FirefoxOptions options = new FirefoxOptions();
+        options.setAcceptInsecureCerts(acceptInsecureCerts);
         if (headless) {
             options.addArguments("-headless");
         }

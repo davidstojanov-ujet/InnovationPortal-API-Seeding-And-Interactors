@@ -45,6 +45,11 @@ public final class ConfigReader {
         return envBaseUrl;
     }
 
+    /** Accept untrusted TLS certificates, e.g. a test environment with an internal CA. */
+    public static boolean acceptInsecureCerts() {
+        return Boolean.parseBoolean(required("acceptInsecureCerts"));
+    }
+
     public static int explicitWaitSeconds() {
         return Integer.parseInt(required("explicitWaitSeconds"));
     }

@@ -64,7 +64,7 @@ The test account comes from the `EMPLOYEE_*` environment variables listed in [do
 
 Options can be combined, e.g. `mvn test -Dgroups="P1 & smoke" -DexcludedGroups=wip -Dheadless=true -Denv=test`.
 `-Dgroups` / `-DexcludedGroups` take JUnit 5 tag expressions (`&`, `|`, `!`). Tags are set with `@Tag` (`P1`, `smoke`, one per feature).
-Other overrides: `-Dbrowser=chrome|firefox|edge`, `-DbaseUrl=<url>`.
+Other overrides: `-Dbrowser=chrome|firefox|edge`, `-DbaseUrl=<url>`, `-DacceptInsecureCerts=false` (default `true`, because the test environment's TLS certificate is not publicly trusted).
 
 Tests run one at a time. Parallel execution is off in `src/test/resources/junit-platform.properties`, which documents how to turn it on later.
 
