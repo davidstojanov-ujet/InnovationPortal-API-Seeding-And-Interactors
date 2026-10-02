@@ -20,13 +20,13 @@
   "clientForm": {
     "testCaseId": "TC-LEGACY-007",
     "innovationType": "Client Initiative",
-    "mandatoryFields": ["title", "customerName", "projectName", "innovationCategory", "domain", "confidential", "impactOfIdea"],
+    "mandatoryFields": ["title", "innovationType", "customerName", "projectName", "innovationCategory", "domain", "innovators", "summary", "confidential"],
     "expectedMessages": "TODO(Q9): exact validation message texts"
   },
   "orgForm": {
     "testCaseId": "TC-LEGACY-008",
     "innovationType": "Organisation Initiative",
-    "mandatoryFields": ["title", "department", "innovationCategory", "domain", "confidential", "impactOfIdea"],
+    "mandatoryFields": ["title", "innovationType", "department", "innovationCategory", "domain", "innovators", "summary", "confidential"],
     "expectedMessages": "TODO(Q9): exact validation message texts"
   }
 }

@@ -39,6 +39,8 @@ public final class Constants {
     // TODO(Q29): feature tags proposed in docs/testcases/p1-analysis.md, pending confirmation.
     public static final String TAG_FEATURE_LOGIN = "login";
     public static final String TAG_FEATURE_SUBMIT = "submit";
+    public static final String TAG_FEATURE_VALIDATION = "validation";
+    public static final String TAG_FEATURE_SECURITY = "security";
 
     private Constants() {
     }

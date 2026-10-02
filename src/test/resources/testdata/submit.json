@@ -28,7 +28,7 @@
   "orgIdea": {
     "testCaseId": "TC-LEGACY-004",
     "innovationType": "Organisation Initiative",
-    "department": "TODO(Q6): department, one of HR, Finance, IT Support, ...",
+    "department": "IT Support",
     "innovationCategory": "Good to have Generic solution/Tool/Framework",
     "domains": ["Solution Architecture & Technology Solutions"],
     "summary": "Automation P1 org idea - brief description",

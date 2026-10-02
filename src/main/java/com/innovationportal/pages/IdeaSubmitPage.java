@@ -1,6 +1,8 @@
 package com.innovationportal.pages;
 
+import java.util.Map;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -11,10 +13,13 @@ import org.openqa.selenium.support.ui.Select;
  * Submit Idea form ({@code /innovation-portal/idea-submit}) for Client and Organisation initiatives.
  * Radios and checkboxes are hidden inputs styled through their label, so the label is clicked and the
  * input is read. Project Name is rebuilt by AJAX (its id changes), so it is located by name.
+ * The red asterisk on a mandatory field is not markup: it is a {@code ::after} pseudo-element on the
+ * field's label with the {@code required.svg} background image, so it is read through the computed style.
  */
 public class IdeaSubmitPage extends BasePage {
 
     private static final String ROUTE = "/innovation-portal/idea-submit";
+    private static final String REQUIRED_MARKER_IMAGE = "required.svg";
 
     private final By form = By.id("innovation-portal-idea-submit-form");
     private final By innovationType = By.id("innovation_type");
@@ -34,6 +39,22 @@ public class IdeaSubmitPage extends BasePage {
     private final By businessUseCase = By.id("edit-business-use-case");
     private final By submitIdeaButton = By.id("edit-submit-idea");
 
+    /**
+     * Label that carries the red asterisk, keyed by the field names used in {@code validation.json}.
+     * Project Name's label follows its AJAX-suffixed id ({@code edit-project--<random>}), hence the prefix match.
+     */
+    private final Map<String, By> requiredMarkerLabels = Map.of(
+            "title", By.cssSelector("label[for='edit-title']"),
+            "innovationType", By.cssSelector("label[for='innovation_type']"),
+            "customerName", By.cssSelector("label[for='edit-customer-name']"),
+            "projectName", By.cssSelector("label[for^='edit-project']"),
+            "department", By.cssSelector("label[for='edit-department']"),
+            "innovationCategory", By.cssSelector(".innovation_category_field .field_label"),
+            "domain", By.cssSelector("label[for='edit-domain']"),
+            "innovators", By.cssSelector("label[for='edit-innovators']"),
+            "summary", By.cssSelector("label[for='edit-summary']"),
+            "confidential", By.cssSelector(".confidential_field legend .fieldset-legend"));
+
     public IdeaSubmitPage(WebDriver driver) {
         super(driver);
     }
@@ -48,8 +69,10 @@ public class IdeaSubmitPage extends BasePage {
         return driver.getCurrentUrl();
     }
 
+    /** Selects the type and waits for the AJAX-rebuilt form (Innovators list) to settle. */
     public IdeaSubmitPage selectInnovationType(String type) {
         selectByVisibleText(innovationType, type);
+        waitForInnovatorsLoaded();
         return this;
     }
 
@@ -65,13 +88,32 @@ public class IdeaSubmitPage extends BasePage {
         return isDisplayed(projectName);
     }
 
+    /** True once the Customer Name field is hidden (it only applies to Client ideas). */
+    public boolean isCustomerNameHidden() {
+        return isHidden(customerName);
+    }
+
+    /** True once the Project Name field is hidden (it only applies to Client ideas). */
+    public boolean isProjectNameHidden() {
+        return isHidden(projectName);
+    }
+
+    public boolean isDepartmentDisplayed() {
+        return isDisplayed(department);
+    }
+
     /** True once the Department field is hidden (it only applies to Organisation ideas). */
     public boolean isDepartmentHidden() {
-        try {
-            return waits.waitForInvisible(department);
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return isHidden(department);
+    }
+
+    public IdeaSubmitPage selectDepartment(String value) {
+        selectByVisibleText(department, value);
+        return this;
+    }
+
+    public String getSelectedDepartment() {
+        return selectedText(department);
     }
 
     /** Selects the customer and waits for the AJAX-rebuilt Project Name list to offer {@code projectCode}. */
@@ -120,6 +162,15 @@ public class IdeaSubmitPage extends BasePage {
         return driver.findElement(clientCategoryInput(category)).isSelected();
     }
 
+    public IdeaSubmitPage selectOrgCategory(String category) {
+        click(labelFor(orgCategoryInput(category)));
+        return this;
+    }
+
+    public boolean isOrgCategorySelected(String category) {
+        return driver.findElement(orgCategoryInput(category)).isSelected();
+    }
+
     /** Adds a Domain token unless the form already holds it (the form pre-fills a default domain). */
     public IdeaSubmitPage addDomain(String domain) {
         if (getDomainValue().contains(domain)) {
@@ -141,6 +192,11 @@ public class IdeaSubmitPage extends BasePage {
 
     public IdeaSubmitPage enterSummary(String value) {
         type(summary, value);
+        return this;
+    }
+
+    public IdeaSubmitPage clearSummary() {
+        type(summary, "");
         return this;
     }
 
@@ -194,6 +250,25 @@ public class IdeaSubmitPage extends BasePage {
         return driver.findElement(businessUseCase).getAttribute("value");
     }
 
+    /**
+     * True if the field's label shows the red required asterisk. {@code field} is a key of
+     * {@code validation.json} {@code mandatoryFields}, e.g. {@code title}, {@code innovationCategory}.
+     */
+    public boolean isRequiredMarkerShown(String field) {
+        By label = requiredMarkerLabels.get(field);
+        if (label == null) {
+            throw new IllegalArgumentException("No required-marker label mapped for field '" + field + "'");
+        }
+        Object image = ((JavascriptExecutor) driver).executeScript(
+                "return getComputedStyle(arguments[0], '::after').backgroundImage;", waits.waitForVisible(label));
+        return String.valueOf(image).contains(REQUIRED_MARKER_IMAGE);
+    }
+
+    /** Current state of the Submit Idea button, without waiting for it to change. */
+    public boolean isSubmitIdeaDisabled() {
+        return !driver.findElement(submitIdeaButton).isEnabled();
+    }
+
     /** True once the Submit Idea button becomes enabled (it starts disabled until the form is valid). */
     public boolean isSubmitIdeaEnabled() {
         return waits.waitForEnabled(submitIdeaButton).isEnabled();
@@ -222,6 +297,18 @@ public class IdeaSubmitPage extends BasePage {
 
     private By clientCategoryInput(String category) {
         return By.cssSelector("input[name='innovation_category_cli'][value='" + category + "']");
+    }
+
+    private By orgCategoryInput(String category) {
+        return By.cssSelector("input[name='innovation_category_org'][value='" + category + "']");
+    }
+
+    private boolean isHidden(By locator) {
+        try {
+            return waits.waitForInvisible(locator);
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     private By confidentialRadio(String yesOrNo) {

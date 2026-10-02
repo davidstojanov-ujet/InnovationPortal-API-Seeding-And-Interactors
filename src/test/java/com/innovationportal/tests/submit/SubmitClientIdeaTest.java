@@ -23,7 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Golden path: an employee submits a Client Initiative idea and finds it in My Ideas. */
+/**
+ * Submit feature: an employee submits a Client Initiative idea (the golden path) or an Organisation
+ * Initiative idea and finds it in My Ideas.
+ */
 class SubmitClientIdeaTest extends BaseTest {
 
     private static final String DATA_FILE = "submit.json";
@@ -117,5 +120,90 @@ class SubmitClientIdeaTest extends BaseTest {
                 "Step 15: My Ideas shows Innovation Type 'Client Initiative'");
         assertEquals(idea.getExpectedInitialStatus(), myIdeasPage.getStatus(ideaTitle),
                 "Step 15: My Ideas shows the initial status 'Pending Approval'");
+    }
+
+    @Test
+    @Tag(Constants.TAG_P1)
+    @Tag(Constants.TAG_FEATURE_SUBMIT)
+    @DisplayName("TC-LEGACY-004 - Verify if an employee who is allocated to a project is able to submit the Organization initiative innovation")
+    @Description("Employee signs in through ADFS, submits an Organisation Initiative idea with all mandatory fields, "
+            + "lands on the new idea's detail page and finds the idea in My Ideas with its initial status.")
+    @Story("Submit an Organisation Initiative idea")
+    void employeeSubmitsOrganisationInitiativeIdea() {
+        // Arrange
+        UserCredentials employee = JsonUtils.read(DATA_FILE, "user", UserCredentials.class);
+        IdeaData idea = JsonUtils.read(DATA_FILE, "orgIdea", IdeaData.class);
+        String ideaTitle = RandomDataUtils.uniqueString(JsonUtils.read(DATA_FILE, "titlePrefix", String.class));
+        String domain = idea.getDomains().get(0);
+        IdeaImpact impact = idea.getImpacts().get(0);
+        LoginPage loginPage = new LoginPage(driver());
+
+        // Steps 2-6: sign in and reach the portal
+        assertTrue(loginPage.isLoaded(), "Step 2: Portal or ADFS login page is displayed");
+
+        XornetGlobalScreenPage globalScreen = loginPage.loginAs(employee);
+        assertFalse(loginPage.isOnSignInPage(),
+                "Step 3: ADFS authenticates successfully (ADFS error: '" + loginPage.getErrorText() + "')");
+
+        HomePage homePage = globalScreen.dismissIfShown();
+        assertTrue(homePage.isLoaded(),
+                "Step 4-5: Global Screen is dismissed and the Innovation Portal landing page is visible");
+        assertTrue(homePage.isSubmitIdeaLinkDisplayed(),
+                "Step 5: Landing page shows role-appropriate navigation (+ Submit Idea)");
+        assertFalse(homePage.getLoggedInUserName().isBlank(),
+                "Step 6: Logged-in user context is shown in the header");
+
+        // Steps 7-8: open the form and choose Organisation Initiative
+        IdeaSubmitPage submitPage = homePage.clickSubmitIdea();
+        assertTrue(submitPage.isLoaded(), "Step 7: Submit Idea form loads at /idea-submit");
+
+        submitPage.selectInnovationType(idea.getInnovationType());
+        assertEquals(idea.getInnovationType(), submitPage.getSelectedInnovationType(),
+                "Step 8: Organisation Initiative is selected");
+        assertTrue(submitPage.isDepartmentDisplayed(), "Step 8: Department field appears");
+        assertTrue(submitPage.isCustomerNameHidden(), "Step 8: Customer Name is hidden");
+        assertTrue(submitPage.isProjectNameHidden(), "Step 8: Project Name is hidden");
+
+        // Step 9: fill every mandatory field and the optional Business Use Case
+        submitPage.selectDepartment(idea.getDepartment())
+                .enterTitle(ideaTitle)
+                .selectOrgCategory(idea.getInnovationCategory())
+                .addDomain(domain)
+                .enterSummary(idea.getSummary())
+                .enterInnovationDetails(idea.getInnovationDetails())
+                .selectConfidential(idea.getConfidential())
+                .addImpact(impact.getKey(), impact.getAmount(), impact.getDescription())
+                .enterBusinessUseCaseIfShown(idea.getBusinessUseCase());
+
+        assertEquals(idea.getDepartment(), submitPage.getSelectedDepartment(),
+                "Step 9: Department shows a valid selection");
+        assertEquals(ideaTitle, submitPage.getTitleValue(), "Step 9: Idea Title accepts the unique value");
+        assertTrue(submitPage.isOrgCategorySelected(idea.getInnovationCategory()),
+                "Step 9: Innovation Category is selected");
+        assertTrue(submitPage.getDomainValue().contains(domain), "Step 9: Domain holds a valid selection");
+        assertEquals(idea.getSummary(), submitPage.getSummaryValue(), "Step 9: Brief description accepts text");
+        assertEquals(idea.getInnovationDetails(), submitPage.getInnovationDetailsValue(),
+                "Step 9: Innovation Details accepts text");
+        assertTrue(submitPage.isConfidentialSelected(idea.getConfidential()),
+                "Step 9: Confidential choice is selected");
+        assertTrue(submitPage.isImpactSelected(impact.getKey()), "Step 9: Impact of Idea option is ticked");
+        assertEquals(impact.getAmount(), submitPage.getImpactAmount(impact.getKey()),
+                "Step 9: Impact of Idea Amount accepts the value");
+
+        // Steps 10-11: submit
+        assertTrue(submitPage.isSubmitIdeaEnabled(), "Step 10: Submit Idea is enabled when the form is complete");
+        IdeaDetailPage detailPage = submitPage.submitIdea();
+        assertTrue(detailPage.isLoaded(),
+                "Step 11: Form submits and the browser navigates to the idea detail page (actual URL: "
+                        + detailPage.getCurrentUrl() + ")");
+        assertFalse(detailPage.getIdeaId().isEmpty(), "Step 11: Detail page URL carries a new idea ID");
+
+        // Step 12: the idea is listed in My Ideas
+        MyIdeasPage myIdeasPage = new MyIdeasPage(driver()).open();
+        assertTrue(myIdeasPage.isIdeaListed(ideaTitle), "Step 12: Submitted idea appears in My Ideas");
+        assertEquals(idea.getInnovationType(), myIdeasPage.getInnovationType(ideaTitle),
+                "Step 12: My Ideas shows Innovation Type 'Organisation Initiative'");
+        assertEquals(idea.getExpectedInitialStatus(), myIdeasPage.getStatus(ideaTitle),
+                "Step 12: My Ideas shows the initial status 'Pending Approval'");
     }
 }
