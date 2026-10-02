@@ -60,4 +60,6 @@ _Placeholder — will be documented once the framework is in place._
 
 - Branch: `feature/<JIRA-KEY>-<short-name>`
 - Commit message: `<JIRA-KEY>: <change>`
-- One PR per ticket
+- One PR per ticket, using the PR template (`.github/pull_request_template.md`)
+- CI (`.github/workflows/ci.yml`) runs `mvn clean test-compile` on every PR; merge only when it is green
+- Squash-merge; head branches are deleted automatically after merge

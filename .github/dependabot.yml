@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      # Stay on the major versions required by docs/PROJECT_CONTEXT.md
+      - dependency-name: "org.seleniumhq.selenium:*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.junit:*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.junit.jupiter:*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      maven-dependencies:
+        patterns: ["*"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
