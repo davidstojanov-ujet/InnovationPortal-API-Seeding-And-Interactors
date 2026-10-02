@@ -1,0 +1,22 @@
+# Maven / build output
+target/
+bin/
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.factorypath
+.settings/
+
+# Reports and run artifacts
+allure-results/
+allure-report/
+logs/
+screenshots/
+*.log
+
+# Local secrets
+.env
