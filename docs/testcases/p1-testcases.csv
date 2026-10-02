@@ -1,0 +1,646 @@
+Change Status,Test Case ID,Module,Priority,Name,Importance,Summary / Test Cases,Test Data,Preconditions,Actions,Expected Result,Requirement IDs,Priority Rationale,Detailed Test Steps,Step-wise Expected Results,Automated yes/no,Test Steps Automated(Yes/No),Step Automation Status
+EXISTING,TC-LEGACY-001,Submit / My Ideas,P1,Innovation Portal,High,Verify if an employee who is allocated to a project is able to submit the Client initiative innovation.,ADTEST-08     SafetyChain Mobile,Login as an employee user.,Click On Submit Idea.,The user should be able to submit the Client initiative innovation.,"REQ-SUB-01, REQ-SUB-02",BC=5/UI=5/Risk=2/Freq=5/Integ=1/Compl=1/Defect=1. Forced P1 (core happy-path / security / lock / scoring). Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user (project-allocated). [Partial]
+Step 7: Click ""+ Submit Idea"" on the landing page (or open https://10.20.3.66/innovation-portal/idea-submit). [Yes]
+Step 8: In Innovation Type (#innovation_type), select ""Client Initiative"". [Yes]
+Step 9: Fill all mandatory Client Initiative fields with random/test data: Customer Name* (#edit-customer-name — pick any assigned customer), Project Name* (#edit-project — pick any available project), Idea Title (#edit-title — unique value), Innovation Category* (click a category card), Domain* (#edit-domain — select 1–5 values), Brief description (#edit-summary), Innovation Details (#edit-innovation-details), Confidential* (#edit-confidential-yes or #edit-confidential-no), and at least one Impact of Idea checkbox with Amount + Description. [Yes]
+Step 10: Optionally fill Business Use Case (#edit-business-use-case) if visible. [Partial]
+Step 11: Review all fields marked mandatory (required indicator / red asterisk); complete any missing mandatory values with appropriate test data or random dropdown selections. [Yes]
+Step 12: Verify the Submit Idea button (#edit-submit-idea) is enabled. If disabled, cross-check mandatory fields, update missing values, tab out of fields to trigger validation, and re-check until enabled. [Yes]
+Step 13: Click Submit Idea when the button is enabled. [Yes]
+Step 14: After submission, note the redirected URL (/innovation-portal/idea/{id}) and idea ID. [Partial]
+Step 15: Open My Ideas (https://10.20.3.66/innovation-portal/my-idea-list) and locate the submitted idea by title. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (project-allocated) (ADTest\Adtest15).
+Step 7: Submit Idea form loads at /idea-submit.
+Step 8: Client Initiative is selected; Customer Name and Project Name fields appear (Department hidden).
+Step 9: All mandatory fields accept test/random values; dropdowns show valid selections.
+Step 10: Optional Business Use Case accepts text if shown.
+Step 11: No mandatory field remains empty; required markers satisfied.
+Step 12: Submit Idea button transitions from disabled to enabled once mandatory data is complete.
+Step 13: Form submits without validation errors.
+Step 14: Browser navigates to idea detail page with a new idea ID.
+Step 15: Submitted idea appears in My Ideas with Innovation Type ""Client Initiative"" and initial status (e.g., Pending Approval).",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Yes
+Step 9: Yes
+Step 10: Partial
+Step 11: Yes
+Step 12: Yes
+Step 13: Yes
+Step 14: Partial
+Step 15: No"
+EXISTING,TC-LEGACY-004,Submit / My Ideas,P1,Innovation Portal,High,Verify if an employee who is allocated to a project is able to submit the Organization initiative innovation.,ADTEST-14           Tibco iMany,Login as an employee user.,Click On Submit Idea.,The user should be able to submit the organization initiative innovation.,"REQ-SUB-01, REQ-SUB-03",BC=5/UI=5/Risk=2/Freq=5/Integ=1/Compl=1/Defect=1. Forced P1 (core happy-path / security / lock / scoring). Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""+ Submit Idea"" on the landing page (or open https://10.20.3.66/innovation-portal/idea-submit). [Yes]
+Step 8: In Innovation Type (#innovation_type), select ""Organisation Initiative"". [Yes]
+Step 9: Fill all mandatory fields with random/test data from Test Data column; select random valid dropdown values (Title, Category, Domain, Summary, Details, Confidential, Impact of Idea, etc.). [Yes]
+Step 10: Verify Submit Idea button (#edit-submit-idea) is enabled; if disabled, cross-check mandatory fields and complete missing values. [Yes]
+Step 11: Click Submit Idea. [Yes]
+Step 12: Open My Ideas (https://10.20.3.66/innovation-portal/my-idea-list) and verify submitted idea status/details. [Partial]
+Step 13: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Submit Idea form loads at /idea-submit.
+Step 8: Department* appears; Customer/Project fields hidden.
+Step 9: All mandatory fields accept values; required markers satisfied.
+Step 10: Submit button enabled when form is complete.
+Step 11: Form submits; browser navigates to /idea/{id} or shows success.
+Step 12: The user should be able to submit the organization initiative innovation.
+Step 13: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Yes
+Step 9: Yes
+Step 10: Yes
+Step 11: Yes
+Step 12: Partial
+Step 13: No"
+EXISTING,TC-LEGACY-007,General,P1,Innovation Portal,High,To verify the validation for Client Innovation Form.,ADTEST-08     SafetyChain Mobile,Login as an employee user.,Click On Submit Idea.,The validations should work properly i.e. user should not be able to submit the form without mandatory fields and also mandatory fields should be shown with red asterisk.,"REQ-SUB-01, REQ-SUB-02",BC=5/UI=5/Risk=3/Freq=5/Integ=1/Compl=1/Defect=1. Forced P1 (core happy-path / security / lock / scoring). Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""+ Submit Idea"" on the landing page (or open https://10.20.3.66/innovation-portal/idea-submit). [Yes]
+Step 8: In Innovation Type (#innovation_type), select ""Client Initiative"". [Yes]
+Step 9: Apply valid, invalid, and boundary data from Test Data / Summary (missing mandatory fields, 501-char text, extra domains, invalid attachments, etc.). [Yes]
+Step 10: Verify Submit Idea button (#edit-submit-idea) stays disabled or blocks submit when validation fails. [Yes]
+Step 11: Re-test with valid data; confirm Submit enables and succeeds when scenario requires positive path. [Partial]
+Step 12: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Submit Idea form loads at /idea-submit.
+Step 8: Customer Name* and Project Name* fields appear; Department hidden.
+Step 9: Validation messages display for invalid/boundary inputs.
+Step 10: Invalid data is rejected per Expected Result.
+Step 11: The validations should work properly i.e. user should not be able to submit the form without mandatory fields and also mandatory fields should be shown with red asterisk.
+Step 12: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Yes
+Step 9: Yes
+Step 10: Yes
+Step 11: Partial
+Step 12: No"
+EXISTING,TC-LEGACY-008,General,P1,Innovation Portal,High,To verify the validation for Organization Innovation Form.,ADTEST-08     SafetyChain Mobile,Login as an employee user.,Click On Submit Idea.,The validations should work properly i.e. user should not be able to submit the form without mandatory fields and also mandatory fields should be shown with red asterisk.,"REQ-SUB-01, REQ-SUB-03",BC=5/UI=5/Risk=3/Freq=5/Integ=1/Compl=1/Defect=1. Forced P1 (core happy-path / security / lock / scoring). Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""+ Submit Idea"" on the landing page (or open https://10.20.3.66/innovation-portal/idea-submit). [Yes]
+Step 8: In Innovation Type (#innovation_type), select ""Organisation Initiative"". [Yes]
+Step 9: Apply valid, invalid, and boundary data from Test Data / Summary (missing mandatory fields, 501-char text, extra domains, invalid attachments, etc.). [Yes]
+Step 10: Verify Submit Idea button (#edit-submit-idea) stays disabled or blocks submit when validation fails. [Yes]
+Step 11: Re-test with valid data; confirm Submit enables and succeeds when scenario requires positive path. [Partial]
+Step 12: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Submit Idea form loads at /idea-submit.
+Step 8: Department* appears; Customer/Project fields hidden.
+Step 9: Validation messages display for invalid/boundary inputs.
+Step 10: Invalid data is rejected per Expected Result.
+Step 11: The validations should work properly i.e. user should not be able to submit the form without mandatory fields and also mandatory fields should be shown with red asterisk.
+Step 12: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Yes
+Step 9: Yes
+Step 10: Yes
+Step 11: Partial
+Step 12: No"
+UPDATED,TC-LEGACY-029,Approval,P1,Innovation Portal,High,Verify Approve is blocked when Impact of Idea (option + $ + description) is missing; Save as Draft may retain partial data.,Committee Members - ADTEST10 (PEIP Vertical),Login as a committee approver.,Click On Perceived Benefit Screen.,The evaluator should be able to skip Perceived Benefit Realization.,REQ-APR-02,BC=5/UI=5/Risk=4/Freq=5/Integ=1/Compl=1/Defect=4. Forced P1 (core happy-path / security / lock / scoring). BB-2 UPDATED — historically misaligned / high defect risk. State-machine or scoring oracle. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest08"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Committee member / Evaluator. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Click Evaluate; enter partial evaluation data; Save as Draft; reopen idea. [Partial]
+Step 12: Verify: The evaluator should be able to skip Perceived Benefit Realization. [Partial]
+Step 13: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Committee member / Evaluator (ADTest\Adtest08).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Evaluation draft saved; status remains Pending Approval.
+Step 12: The evaluator should be able to skip Perceived Benefit Realization.
+Step 13: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: No"
+UPDATED,TC-LEGACY-081,Approval,P1,Homepage - Idea List,High,Verify if this is a dashboard which displays all ideas that have been approved and are not confidential.,"All Users. (Adtest 04,05,06 etc.)",Login as an User.,Click On Idea List.,Such records should be shown here.,"REQ-LIST-01, REQ-APR-03",BC=5/UI=5/Risk=5/Freq=5/Integ=1/Compl=5/Defect=4. Forced P1 (core happy-path / security / lock / scoring). BB-2 UPDATED — historically misaligned / high defect risk. Security / privilege / Accelerator surface. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Based on test intention, click Delete, Evaluate, or Change the Evaluator. [Partial]
+Step 12: (Evaluate path) Click Approve, Reject, or On Hold; fill mandatory ratings/comments; click Submit Evaluation. [Partial]
+Step 13: (Change Evaluator path) Select different committee member and Submit. [Partial]
+Step 14: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Selected action control is available for evaluator role.
+Step 12: Evaluation action completes; status updates per scenario.
+Step 13: Such records should be shown here.
+Step 14: Test evidence recorded; session closed.",No,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: Partial
+Step 14: No"
+EXISTING,TC-LEGACY-082,Approval,P1,Homepage - Idea List,High,Verify dashboard displays all ideas that have been approved and confidential.,"All Users. (Adtest 04,05,06 etc.)",Login as an User.,Click On Idea List.,Such records should not be shown here.,"REQ-APR-02, REQ-APR-03, REQ-LIST-01",BC=5/UI=5/Risk=5/Freq=5/Integ=1/Compl=5/Defect=1. Security / privilege / Accelerator surface. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Based on test intention, click Delete, Evaluate, or Change the Evaluator. [Partial]
+Step 12: (Evaluate path) Click Approve, Reject, or On Hold; fill mandatory ratings/comments; click Submit Evaluation. [Partial]
+Step 13: (Change Evaluator path) Select different committee member and Submit. [Partial]
+Step 14: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Selected action control is available for evaluator role.
+Step 12: Evaluation action completes; status updates per scenario.
+Step 13: Such records should not be shown here.
+Step 14: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: Partial
+Step 14: No"
+EXISTING,TC-LEGACY-089,Idea List / Solutions,P1,Homepage - Idea List,High,"Verify if Approver selects ‘Yes’ idea will be kept confidential, In this case it will not be displayed in Idea List. If approver selects ‘No’ and approve the idea, it will be displayed in Idealist for all employees.",ADTEST-08     SafetyChain Mobile,Login as an employee user.,Click On Idea List.,"If approver selects ‘Yes’ idea will be kept confidential, In this case it will not be displayed in Idea List. If approver selects ‘No’ and approve the idea, it will be displayed in Idealist for all employees.","REQ-APR-02, REQ-APR-03, REQ-LIST-01",BC=5/UI=5/Risk=5/Freq=5/Integ=1/Compl=5/Defect=1. Security / privilege / Accelerator surface. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Based on test intention, click Delete, Evaluate, or Change the Evaluator. [Partial]
+Step 12: (Evaluate path) Click Approve, Reject, or On Hold; fill mandatory ratings/comments; click Submit Evaluation. [Partial]
+Step 13: (Change Evaluator path) Select different committee member and Submit. [Partial]
+Step 14: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Selected action control is available for evaluator role.
+Step 12: Evaluation action completes; status updates per scenario.
+Step 13: If approver selects ‘Yes’ idea will be kept confidential, In this case it will not be displayed in Idea List. If approver selects ‘No’ and approve the idea, it will be displayed in Idealist for all employees.
+Step 14: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: Partial
+Step 14: No"
+UPDATED,TC-LEGACY-101,Tracking,P1,Customer Initiative Progress Tracking,High,Verify Implemented locks further Customer Progress updates; POC Completed and Proposed also support Actual Benefits (Phase 5).,"Committee Members - ADTEST09, ADTEST10 (PEIP Vertical)",Login as an User.,Click On Approval Dashboard.,“Rejected” and “Implemented” will be end state for customer initiatives in system.,REQ-TRK-01,BC=5/UI=5/Risk=5/Freq=5/Integ=1/Compl=1/Defect=4. Forced P1 (core happy-path / security / lock / scoring). BB-2 UPDATED — historically misaligned / high defect risk. State-machine or scoring oracle. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest08"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Committee member / Evaluator. [Partial]
+Step 7: Open an approved Client idea from My Ideas / Idea List / Approval Dashboard. [Yes]
+Step 8: Navigate to Customer Initiative Progress (CIP) /actual_benefit_realization/{id}. [Yes]
+Step 9: Set Customer Status and required tracking fields from Test Data; Save and re-open to verify locks/rules. [Partial]
+Step 10: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Committee member / Evaluator (ADTest\Adtest08).
+Step 7: Idea detail page loads.
+Step 8: CIP tracking form loads.
+Step 9: “Rejected” and “Implemented” will be end state for customer initiatives in system.
+Step 10: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Yes
+Step 9: Partial
+Step 10: No"
+UPDATED,TC-LEGACY-107,Tracking,P1,Customer Initiative Progress Tracking,High,"Verify Customer Status options include In Progress, Proposed to Customer, Accepted, Rejected, On Hold, POC Completed, Implemented.","Committee Members - ADTEST09, ADTEST10 (PEIP Vertical)",Login as an User.,Click On Approval Dashboard.,"“Customer Status” field will have following list of options
+In Progress 
+Proposed to Customer
+Accepted
+Rejected
+On Hold
+Implemented",REQ-TRK-01,BC=5/UI=5/Risk=4/Freq=5/Integ=1/Compl=5/Defect=4. BB-2 UPDATED — historically misaligned / high defect risk. State-machine or scoring oracle. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest08"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Committee member / Evaluator. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Click Evaluate; click On Hold; submit with comment if prompted. [Partial]
+Step 12: Re-open same idea; click Approve or Reject with mandatory fields; Submit Evaluation. [Partial]
+Step 13: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Committee member / Evaluator (ADTest\Adtest08).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Status changes to On Hold.
+Step 12: “Customer Status” field will have following list of options
+In Progress 
+Proposed to Customer
+Accepted
+Rejected
+On Hold
+Implemented
+Step 13: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: No"
+UPDATED,TC-LEGACY-116,Approval,P1,Idea Approval,High,"Verify Approve requires ratings 1-10 on Innovation Index (25%), Potential Business Impact (35%), Depth (25%), Feasibility (15%) with overall score on 1-10 points scale.",ADTEST-14           Tibco iMany,Login as an User.,Approve the idea.,When evaluators are Approving on Idea then it will mandatory for the Approver to rate the Idea.,REQ-APR-02,BC=5/UI=5/Risk=5/Freq=5/Integ=1/Compl=1/Defect=4. Forced P1 (core happy-path / security / lock / scoring). BB-2 UPDATED — historically misaligned / high defect risk. State-machine or scoring oracle. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Click Evaluate; enter ratings 1–10 (Innovation Index, Potential Business Impact, Depth, Feasibility); complete Impact of Idea / Business Use Case if required. [Partial]
+Step 12: Click Approve; click Submit Evaluation. [Partial]
+Step 13: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Weighted score calculated; mandatory fields enforced.
+Step 12: When evaluators are Approving on Idea then it will mandatory for the Approver to rate the Idea.
+Step 13: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: No"
+NEW,TC-NEW-011,Approval,P1,Innovation Portal,High,Verify Client idea auto-assigns vertical default evaluator; Org assigns department default evaluator.,,,,,REQ-APR-01,BC=4/UI=5/Risk=2/Freq=5/Integ=1/Compl=1/Defect=1. Forced P1 (core happy-path / security / lock / scoring). Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest08"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Committee member / Evaluator. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Review grid rows without changing filters; confirm Status column values. [Partial]
+Step 12: Verify: Outcome matches Expected Result column. [Partial]
+Step 13: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Committee member / Evaluator (ADTest\Adtest08).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Only Pending Approval ideas shown by default filter + My Evaluations.
+Step 12: Outcome matches Expected Result column.
+Step 13: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: No"
+NEW,TC-NEW-013,Approval,P1,Innovation Portal,High,Verify Reject without comment is blocked.,,,,,REQ-APR-02,BC=5/UI=5/Risk=2/Freq=5/Integ=1/Compl=1/Defect=1. Forced P1 (core happy-path / security / lock / scoring). State-machine or scoring oracle. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Click Evaluate; attempt Reject without comment; observe block. [Partial]
+Step 12: Enter rejection comment; click Submit Evaluation / confirm Reject. [Partial]
+Step 13: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Reject blocked without mandatory comment.
+Step 12: Outcome matches Expected Result column.
+Step 13: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: No"
+NEW,TC-NEW-022,Tracking,P1,Innovation Portal,High,Verify Project Manager (Rel 5.1) can update Customer Progress only (not full evaluator approve privileges).,,,,,"REQ-TRK-01, REQ-AUTH-01",BC=5/UI=5/Risk=5/Freq=5/Integ=1/Compl=5/Defect=3. Forced P1 (core happy-path / security / lock / scoring). Security / privilege / Accelerator surface. State-machine or scoring oracle. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest08"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Committee member / Evaluator. [Partial]
+Step 7: Click ""Approval Dashboard"" (or open https://10.20.3.66/innovation-portal/approval-dashboard). [Yes]
+Step 8: Set Innovation Status filter as required by scenario (default Pending Approval unless testing Approved/Rejected/On Hold). [Partial]
+Step 9: Enable ""My Evaluations"" checkbox; click Filter. [Partial]
+Step 10: Select a Pending Approval idea from the grid (click Innovation Title or row). [Partial]
+Step 11: Based on test intention, click Delete, Evaluate, or Change the Evaluator. [Partial]
+Step 12: (Evaluate path) Click Approve, Reject, or On Hold; fill mandatory ratings/comments; click Submit Evaluation. [Partial]
+Step 13: (Change Evaluator path) Select different committee member and Submit. [Partial]
+Step 14: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Committee member / Evaluator (ADTest\Adtest08).
+Step 7: Approval Dashboard loads.
+Step 8: Status filter matches test intent.
+Step 9: Grid shows evaluator-assigned ideas for selected status.
+Step 10: Idea detail / evaluation context opens.
+Step 11: Selected action control is available for evaluator role.
+Step 12: Evaluation action completes; status updates per scenario.
+Step 13: Outcome matches Expected Result column.
+Step 14: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Partial
+Step 9: Partial
+Step 10: Partial
+Step 11: Partial
+Step 12: Partial
+Step 13: Partial
+Step 14: No"
+NEW,TC-NEW-025,Accelerator,P1,Innovation Portal,High,Verify Client Accelerator radio visible only when Status=Implemented to Vertical/Practice head and System Admin.,,,,,REQ-ACC-01,BC=5/UI=5/Risk=5/Freq=3/Integ=1/Compl=5/Defect=3. Forced P1 (core happy-path / security / lock / scoring). Security / privilege / Accelerator surface. State-machine or scoring oracle. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest04"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Admin user. [Partial]
+Step 7: Open Intellectual Property Dashboard via landing tile or https://10.20.3.66/innovation-portal/accelerator-dashboard. [Yes]
+Step 8: Apply Practice/Status filters; validate Client/Org accelerator gates per Test Data. [Yes]
+Step 9: Capture screenshot if actual result differs from expected; log out / close browser. [No]
+Step 10: Re-check UI labels, navigation, and role permissions for TC-NEW-025 against Summary. [Partial]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Admin user (ADTest\Adtest04).
+Step 7: Accelerator dashboard loads (title: Intellectual Property Dashboard).
+Step 8: Outcome matches Expected Result column.
+Step 9: Test evidence recorded; session closed.
+Step 10: Observed state still matches Expected Result at this checkpoint.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Yes
+Step 9: No
+Step 10: Partial"
+NEW,TC-NEW-026,Accelerator,P1,Innovation Portal,High,Verify Org Accelerator radio visible only when Status=POC Completed for Dept/Practice Head/System Admin.,,,,,REQ-ACC-02,BC=5/UI=5/Risk=5/Freq=4/Integ=1/Compl=5/Defect=3. Forced P1 (core happy-path / security / lock / scoring). Security / privilege / Accelerator surface. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest04"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Admin user. [Partial]
+Step 7: Open Intellectual Property Dashboard via landing tile or https://10.20.3.66/innovation-portal/accelerator-dashboard. [Yes]
+Step 8: Apply Practice/Status filters; validate Client/Org accelerator gates per Test Data. [Yes]
+Step 9: Capture screenshot if actual result differs from expected; log out / close browser. [No]
+Step 10: Re-check UI labels, navigation, and role permissions for TC-NEW-026 against Summary. [Partial]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Admin user (ADTest\Adtest04).
+Step 7: Accelerator dashboard loads (title: Intellectual Property Dashboard).
+Step 8: Outcome matches Expected Result column.
+Step 9: Test evidence recorded; session closed.
+Step 10: Observed state still matches Expected Result at this checkpoint.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Yes
+Step 8: Yes
+Step 9: No
+Step 10: Partial"
+NEW,TC-NEW-027,Accelerator,P1,Innovation Portal,High,Verify marking Accelerator notifies Department/Practice/Vertical heads and reflects in reports; committee still fills Actual Benefits.,,,,,"REQ-ACC-01, REQ-ACC-02",BC=5/UI=5/Risk=5/Freq=4/Integ=1/Compl=5/Defect=3. Forced P1 (core happy-path / security / lock / scoring). Security / privilege / Accelerator surface. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest08"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Committee member / Evaluator. [Partial]
+Step 7: Open Idea Reports via landing tile or https://10.20.3.66/innovation-portal/idea-report. [Partial]
+Step 8: Apply filters (Title, Rating, Type, Status, DU, Department, Customer Status, dates); click Filter. [Partial]
+Step 9: Click Export (if scenario requires); verify Excel contents. [Partial]
+Step 10: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Committee member / Evaluator (ADTest\Adtest08).
+Step 7: Idea Reports page loads for authorized role.
+Step 8: Grid reflects filter criteria.
+Step 9: Outcome matches Expected Result column.
+Step 10: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Partial
+Step 8: Partial
+Step 9: Partial
+Step 10: No"
+NEW,TC-NEW-035,Security,P1,Innovation Portal,High,Verify Employee cannot open Approval Dashboard via direct URL.,,,,,REQ-AUTH-01,BC=5/UI=1/Risk=5/Freq=5/Integ=1/Compl=1/Defect=3. Forced P1 (core happy-path / security / lock / scoring). Security / privilege / Accelerator surface. Must run every cycle (business-critical / high-risk),"Step 1: Launch a supported browser (Chrome/Edge recommended). [Yes]
+Step 2: Navigate to https://10.20.3.66/innovation-portal. [Yes]
+Step 3: If redirected to ADFS SSO (adtestadfs.adtest.com), enter Username ""ADTest\Adtest15"" in #userNameInput and Password in #passwordInput; click Sign in. [Yes]
+Step 4: If the Xornet Global Screen appears after login, click Stay Here (or wait for redirect countdown). [Yes]
+Step 5: Confirm Innovation Portal loads (URL contains /innovation-portal); re-navigate to https://10.20.3.66/innovation-portal if still on Xornet home. [Yes]
+Step 6: Verify logged-in user context matches precondition: Employee user. [Partial]
+Step 7: Navigate to the feature under test using landing tiles or verified routes for module ""Security"". [Partial]
+Step 8: Execute Actions: perform scenario steps from Summary. [Partial]
+Step 9: Verify Expected Result: Outcome matches Expected Result column. [Partial]
+Step 10: Capture screenshot if actual result differs from expected; log out / close browser. [No]","Step 1: Browser opens without errors.
+Step 2: Portal or ADFS login page is displayed (ignore self-signed cert warning in test env).
+Step 3: ADFS authenticates successfully.
+Step 4: Global Screen is dismissed; session remains active.
+Step 5: Innovation Portal landing page is visible with role-appropriate navigation.
+Step 6: User context matches Employee user (ADTest\Adtest15).
+Step 7: Target screen loads without error.
+Step 8: Intermediate UI state matches test intent.
+Step 9: Outcome matches Expected Result column.
+Step 10: Test evidence recorded; session closed.",Yes,Partial,"Step 1: Yes
+Step 2: Yes
+Step 3: Yes
+Step 4: Yes
+Step 5: Yes
+Step 6: Partial
+Step 7: Partial
+Step 8: Partial
+Step 9: Partial
+Step 10: No"
