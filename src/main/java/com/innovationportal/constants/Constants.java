@@ -36,8 +36,9 @@ public final class Constants {
     // Tags (use with @Tag)
     public static final String TAG_P1 = "P1";
     public static final String TAG_SMOKE = "smoke";
-    // TODO(feature tags): one tag per feature; add the real names once docs/testcases/ (18 P1 cases) is in the repo.
+    // TODO(Q29): feature tags proposed in docs/testcases/p1-analysis.md, pending confirmation.
     public static final String TAG_FEATURE_LOGIN = "login";
+    public static final String TAG_FEATURE_SUBMIT = "submit";
 
     private Constants() {
     }

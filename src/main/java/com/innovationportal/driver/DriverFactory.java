@@ -41,7 +41,7 @@ public final class DriverFactory {
         ChromeOptions options = new ChromeOptions();
         options.setAcceptInsecureCerts(acceptInsecureCerts);
         if (headless) {
-            options.addArguments("--headless=new");
+            options.addArguments("--headless=new", headlessScreenInfo(windowSize));
         }
         options.addArguments("--window-size=" + windowSize, "--no-sandbox",
                 "--disable-dev-shm-usage", "--disable-gpu");
@@ -52,11 +52,21 @@ public final class DriverFactory {
         EdgeOptions options = new EdgeOptions();
         options.setAcceptInsecureCerts(acceptInsecureCerts);
         if (headless) {
-            options.addArguments("--headless=new");
+            options.addArguments("--headless=new", headlessScreenInfo(windowSize));
         }
         options.addArguments("--window-size=" + windowSize, "--no-sandbox",
                 "--disable-dev-shm-usage", "--disable-gpu");
         return options;
+    }
+
+    /**
+     * Headless Chromium reports an 800x600 screen whatever the window size. The portal's CSS hides all
+     * content behind a "not supporting Landscape mode" overlay for landscape devices up to 898px wide,
+     * so the virtual screen is set to the window size.
+     */
+    private static String headlessScreenInfo(String windowSize) {
+        String[] size = windowSize.split(",");
+        return "--screen-info={" + size[0].trim() + "x" + size[1].trim() + "}";
     }
 
     private static FirefoxOptions firefoxOptions(boolean headless, String windowSize, boolean acceptInsecureCerts) {

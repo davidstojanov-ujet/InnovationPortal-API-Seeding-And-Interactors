@@ -7,8 +7,8 @@
   "clientIdea": {
     "testCaseId": "TC-LEGACY-001",
     "innovationType": "Client Initiative",
-    "customerName": "TODO(Q5): customer assigned to the account, e.g. AMDOCS",
-    "projectName": "TODO(Q5): project of that customer, e.g. AMDOC112",
+    "customerName": "AMDOCS",
+    "projectName": "AMDOC112",
     "innovationCategory": "Project area specific Improvement",
     "domains": ["Solution Architecture & Technology Solutions"],
     "summary": "Automation P1 idea - brief description",

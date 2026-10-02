@@ -2,7 +2,7 @@ package com.innovationportal.tests.smoke;
 
 import com.innovationportal.base.BaseTest;
 import com.innovationportal.constants.Constants;
-import com.innovationportal.pages.HomePage;
+import com.innovationportal.pages.LoginPage;
 import com.innovationportal.utils.JsonUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -19,9 +19,9 @@ class FrameworkSmokeTest extends BaseTest {
     @DisplayName("SMOKE-001 - Base URL opens the sign-in page")
     void baseUrlOpensSignInPage() {
         String expectedTitle = JsonUtils.read("smoke.json", "expectedTitle", String.class);
-        HomePage homePage = new HomePage(driver());
+        LoginPage loginPage = new LoginPage(driver());
 
-        assertTrue(homePage.isLoaded(), "Sign-in username field is not visible");
-        assertEquals(expectedTitle, homePage.getTitle(), "Page title");
+        assertTrue(loginPage.isLoaded(), "Sign-in username field is not visible");
+        assertEquals(expectedTitle, loginPage.getTitle(), "Page title");
     }
 }

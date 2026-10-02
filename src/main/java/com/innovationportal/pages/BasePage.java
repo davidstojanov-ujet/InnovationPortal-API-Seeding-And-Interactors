@@ -2,6 +2,7 @@ package com.innovationportal.pages;
 
 import com.innovationportal.utils.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,11 +33,13 @@ public abstract class BasePage {
     }
 
     protected void click(By locator) {
+        scrollIntoView(waits.waitForVisible(locator));
         waits.waitForClickable(locator).click();
     }
 
     protected void type(By locator, String text) {
         WebElement element = waits.waitForVisible(locator);
+        scrollIntoView(element);
         element.clear();
         element.sendKeys(text);
     }
@@ -52,6 +55,16 @@ public abstract class BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    /**
+     * Scrolls the element to the middle of the viewport without animation. Pages with CSS
+     * {@code scroll-behavior: smooth} (Bootstrap 5) otherwise animate WebDriver's own scroll, and the
+     * click lands before the element is in view ("element click intercepted").
+     */
+    protected void scrollIntoView(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest', behavior: 'instant'});", element);
     }
 
     protected void selectByVisibleText(By locator, String text) {

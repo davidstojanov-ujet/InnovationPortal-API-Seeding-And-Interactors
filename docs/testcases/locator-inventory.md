@@ -11,7 +11,7 @@ Legend: **Best** = locator to use in the page object. **Fallback** = second choi
 
 | # | Finding | Impact | Recommendation |
 |---|---|---|---|
-| X1 | **Headless Chrome is blocked.** In `--headless=new` (1920x1080) the portal shows only "Currently we are not supporting Landscape mode. Please switch back to Portrait mode for good user experience." The DOM is present, but every element is invisible, so visibility waits time out. Headed Chrome renders normally. | `config.properties` defaults to `headless=true`. Every UI test would fail in CI. | Before the golden-path test: find the trigger (orientation/size media query or headless user-agent detection) and fix it in `DriverFactory` (for example a desktop user agent, or a window size the overlay accepts), or ask developers to drop the check for automation. Until then run with `-Dheadless=false`. |
+| X1 | **Headless Chrome was blocked (fixed in DEM-62).** In `--headless=new` the portal showed only "Currently we are not supporting Landscape mode...". Cause: the portal CSS rule `@media screen and (max-device-width: 898px) and (orientation: landscape)`; headless Chromium reports an 800x600 screen whatever `--window-size` is. | Every UI test failed headless / in CI. | `DriverFactory` now passes `--screen-info={<windowSize>}` in headless Chrome/Edge, so the screen matches the window (1920x1080). |
 | X2 | The app is Drupal. Form controls have stable `id`, `name` and `data-drupal-selector`. The `id` gets a random suffix after an AJAX rebuild (for example `#edit-project` becomes `#edit-project--XU3HMh4cKhs` once a Customer is chosen). | An `id` locator breaks on AJAX-refreshed fields. | Use `[name='...']` or `[data-drupal-selector='...']` for AJAX-dependent fields (marked **Dyn**). |
 | X3 | Radios and checkboxes (Innovation Category, Impact of Idea, rating 1-10, Confidential, My evaluations, committee members) are visually hidden inputs styled through their `<label>`. | Clicking the `<input>` throws `ElementNotInteractableException`. | Click `label[for='<input id>']`; read state from the `<input>` (`isSelected()`). |
 | X4 | Grids (My Ideas, Approval Dashboard, Idea List, Idea Reports) are `div` rows with no row or column ids. Columns are positional, and the status cell class contains spaces (`class="Pending Approval"`). | Positional column reads are fragile. | Locate a row by its title link (`a[href*='/innovation-portal/idea/<id>']`), then read sibling cells. Ask devs for `data-testid` per column and `data-idea-id` per row. |
@@ -299,7 +299,7 @@ The role-to-account mapping (which ADTest user goes into which env var) is in th
 These stop specific tests and need the ticket owner or the developers:
 
 1. **Role coverage (Q1, Q3, Q4, Q25):** only Adtest04 was crawled. Employee-only (denial, TC-NEW-035), Committee member, Project Manager and head-role views are unverified. Most locators are the same pages, but visibility of Evaluate/Delete/IP controls per role is not.
-2. **Headless overlay (X1):** blocks CI runs until fixed.
+2. **Headless overlay (X1):** fixed in DEM-62 (`--screen-info` in `DriverFactory`).
 3. **Post-submit and validation behaviour (Q9, Q10, Q11, Q24):** success URL/text and error messages need a real submit, which this read-only ticket didn't do.
 4. **Data lifecycle and fixtures (Q12, Q15, Q17 fixtures, Q26 ideas):** policy for creating and cleaning ideas, and the known approved/Implemented/POC Completed ideas to use.
 5. **Oracles still undefined in the sheet (Q16, Q18, Q19, Q20, Q22, Q23, Q27, Q28):** see the status table in `p1-analysis.md` Summary 4.
