@@ -42,6 +42,8 @@ public final class Constants {
     public static final String TAG_FEATURE_VALIDATION = "validation";
     public static final String TAG_FEATURE_SECURITY = "security";
     public static final String TAG_FEATURE_APPROVAL = "approval";
+    public static final String TAG_FEATURE_IDEALIST = "idealist";
+    public static final String TAG_FEATURE_TRACKING = "tracking";
 
     private Constants() {
     }

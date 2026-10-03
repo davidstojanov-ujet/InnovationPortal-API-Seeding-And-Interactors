@@ -24,6 +24,7 @@ public class EvaluationPage extends BasePage {
     private final By form = By.id("idea-evalute-page");
     private final By approveStatus = By.id("edit-idea-status-2");
     private final By rejectStatus = By.id("edit-idea-status-3");
+    private final By holdStatus = By.id("edit-idea-status-4");
     private final By reason = By.id("edit-admin-comment");
     private final By saveAsDraftButton = By.id("edit-draft-evalution");
     private final By submitEvaluationButton = By.id("edit-submit-evalution");
@@ -69,6 +70,16 @@ public class EvaluationPage extends BasePage {
 
     public boolean isRejectSelected() {
         return driver.findElement(rejectStatus).isSelected();
+    }
+
+    /** "Hold" in the app; the sheet calls it On Hold. Only the reason is required. */
+    public EvaluationPage selectHold() {
+        selectStatus(holdStatus);
+        return this;
+    }
+
+    public boolean isHoldSelected() {
+        return driver.findElement(holdStatus).isSelected();
     }
 
     /** Rates question {@code question} (0-4) with {@code value} (1-10). */

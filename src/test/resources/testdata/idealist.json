@@ -7,22 +7,24 @@
     "username": "${EVALUATOR_USERNAME}",
     "password": "${EVALUATOR_PASSWORD}"
   },
+  "titlePrefix": "AUTO-P1-IDEALIST",
   "routes": {
     "ideaList": "/dashboard/all_idea_list"
   },
   "approvedNonConfidentialIdea": {
     "testCaseId": "TC-LEGACY-081",
-    "title": "TODO(Q17): title of a known approved, non-confidential idea",
+    "confidential": "No",
     "expectedVisible": true
   },
   "approvedConfidentialIdea": {
     "testCaseId": "TC-LEGACY-082",
-    "title": "TODO(Q17): title of a known approved, confidential idea",
+    "confidential": "Yes",
     "expectedVisible": false
   },
   "approverConfidentialChoice": {
     "testCaseId": "TC-LEGACY-089",
     "confidential": "Yes",
+    "expectedVisible": false,
     "note": "TODO(Q19): no approver Confidential control found on the Evaluation page"
   }
 }

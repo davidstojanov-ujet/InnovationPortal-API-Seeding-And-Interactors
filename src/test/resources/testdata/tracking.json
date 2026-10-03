@@ -7,6 +7,7 @@
     "username": "${PROJECT_MANAGER_USERNAME}",
     "password": "${PROJECT_MANAGER_PASSWORD}"
   },
+  "titlePrefix": "AUTO-P1-TRACKING",
   "routes": {
     "clientProgress": "/actual_benefit_realization/{id}",
     "orgProgress": "/actual_benefit_accelerators/{id}"
@@ -23,15 +24,33 @@
   ],
   "orgIdeaStatusOptions": ["In Progress", "On Hold", "Rejected", "POC Completed"],
   "actualBenefitOutcomes": ["Business improvement", "Framework enhancement", "Process improvement"],
+  "progressUpdate": {
+    "actualBenefitOutcome": "Business improvement",
+    "impact": {
+      "key": "cost-savings-for-customers",
+      "label": "Cost savings for customers",
+      "amount": "1000",
+      "description": "Automation P1 actual benefit"
+    },
+    "comment": "Automation P1 customer progress update"
+  },
   "implementedLock": {
     "testCaseId": "TC-LEGACY-101",
-    "ideaId": "TODO(Q20): approved Client idea in Implemented status",
-    "expectedOnlyOption": "Implemented"
+    "actualBenefitStatuses": ["Proposed to Customer", "POC Completed"],
+    "statusPath": ["Proposed to Customer", "Accepted", "Implemented"],
+    "expectedOptions": ["Implemented"]
+  },
+  "rejectedLock": {
+    "testCaseId": "TC-LEGACY-101",
+    "statusPath": ["Proposed to Customer", "Rejected"],
+    "expectedOptions": ["Rejected"]
   },
   "customerStatusList": {
     "testCaseId": "TC-LEGACY-107",
-    "ideaId": "TODO(Q21): approved Client idea",
-    "expectedOptions": "TODO(Q21): confirm 7 options vs the 8 shown in the Approval Dashboard filter"
+    "holdReason": "Automation P1 hold reason",
+    "expectedHoldStatus": "Hold",
+    "statusPath": ["Proposed to Customer"],
+    "expectedOptions": ["In Progress", "Proposed to Customer", "Accepted", "Rejected", "On Hold", "POC Completed", "Implemented"]
   },
   "projectManagerPrivileges": {
     "testCaseId": "TC-NEW-022",

@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 /**
  * My Ideas grid ({@code /innovation-portal/my-idea-list}). Rows have no ids, so a row is found by its
  * title link and its cells are read by position: 3 = Innovation type, last = Action/Status.
+ * The grid is paged client-side (50 rows per page, the rest are rendered but hidden), so rows are read by
+ * {@code textContent}: an idea on a later page is still found without paging.
  */
 public class MyIdeasPage extends BasePage {
 
@@ -35,17 +37,23 @@ public class MyIdeasPage extends BasePage {
     }
 
     public String getInnovationType(String title) {
-        return findRow(title).map(row -> row.findElements(columns).get(2).getText().trim()).orElse("");
+        return findRow(title).map(row -> textOf(row.findElements(columns).get(2))).orElse("");
     }
 
     public String getStatus(String title) {
-        return findRow(title).map(row -> row.findElement(status).getText().trim()).orElse("");
+        return findRow(title).map(row -> textOf(row.findElement(status))).orElse("");
     }
 
     private Optional<WebElement> findRow(String title) {
         return driver.findElements(rows).stream()
                 .filter(row -> row.findElements(titleLink).stream()
-                        .anyMatch(link -> link.getText().trim().equals(title)))
+                        .anyMatch(link -> textOf(link).equals(title)))
                 .findFirst();
+    }
+
+    /** Text of an element whether or not its page of the grid is displayed (getText is empty when hidden). */
+    private static String textOf(WebElement element) {
+        String text = element.getDomProperty("textContent");
+        return text == null ? "" : text.replaceAll("\\s+", " ").trim();
     }
 }
