@@ -4,6 +4,7 @@ import com.innovationportal.constants.Constants;
 import com.innovationportal.utils.WaitUtils;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +31,9 @@ public class EvaluationPage extends BasePage {
     private final By submitEvaluationButton = By.id("edit-submit-evalution");
     private final By impactCheckboxes = By.cssSelector("#idea-evalute-page input[type='checkbox'][id^='edit-impect-of-idea-']");
     private final By ajaxProgress = By.cssSelector(".ajax-progress");
+    private final By markAcceleratorYes = By.cssSelector("label[for='edit-mark-accelerator-yes']");
+    private final By markAcceleratorNo = By.cssSelector("label[for='edit-mark-accelerator-no']");
+    private final By markAcceleratorInputs = By.name("mark_accelerator");
 
     /** Short wait used to let the Submit Evaluation state settle before reading it. */
     private final WaitUtils shortWaits;
@@ -51,6 +55,19 @@ public class EvaluationPage extends BasePage {
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    /**
+     * True if the Intellectual Property (Accelerator) radio "Do you want to mark this idea as a Xoriant's
+     * Intellectual property?" is shown now (its Yes/No label or input). Waits only for the loaded form, the
+     * finished page load and any running AJAX, then checks without a visibility wait. Call after
+     * {@link #isLoaded()}.
+     */
+    public boolean isMarkAcceleratorDisplayed() {
+        waits.waitForVisible(form);
+        waits.waitFor(d -> "complete".equals(((JavascriptExecutor) d).executeScript("return document.readyState"))
+                && d.findElements(ajaxProgress).isEmpty());
+        return isShownNow(markAcceleratorYes) || isShownNow(markAcceleratorNo) || isShownNow(markAcceleratorInputs);
     }
 
     /** Approve is selected by default; clicking it again is harmless. */
@@ -166,6 +183,10 @@ public class EvaluationPage extends BasePage {
     private void selectStatus(By status) {
         click(status);
         waits.waitFor(d -> d.findElement(status).isSelected() && d.findElements(ajaxProgress).isEmpty());
+    }
+
+    private boolean isShownNow(By locator) {
+        return driver.findElements(locator).stream().anyMatch(WebElement::isDisplayed);
     }
 
     private void typeAndBlur(By locator, String text) {

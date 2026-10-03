@@ -44,6 +44,7 @@ public final class Constants {
     public static final String TAG_FEATURE_APPROVAL = "approval";
     public static final String TAG_FEATURE_IDEALIST = "idealist";
     public static final String TAG_FEATURE_TRACKING = "tracking";
+    public static final String TAG_FEATURE_ACCELERATOR = "accelerator";
 
     private Constants() {
     }

@@ -7,6 +7,7 @@ import com.innovationportal.models.EvaluationData;
 import com.innovationportal.models.IdeaData;
 import com.innovationportal.models.IdeaImpact;
 import com.innovationportal.models.ProgressUpdateData;
+import com.innovationportal.models.ProjectManagerPrivilegesData;
 import com.innovationportal.models.UserCredentials;
 import com.innovationportal.pages.CustomerInitiativeProgressPage;
 import com.innovationportal.pages.EvaluationPage;
@@ -19,6 +20,7 @@ import com.innovationportal.utils.JsonUtils;
 import com.innovationportal.utils.RandomDataUtils;
 import io.qameta.allure.Description;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -140,6 +142,40 @@ class CustomerInitiativeProgressTest extends BaseTest {
         assertEquals(Set.copyOf(statusList.getExpectedOptions()), Set.copyOf(offeredOptions),
                 "Step 12: Customer Status offers exactly " + statusList.getExpectedOptions() + " (after approval: "
                         + approvedOptions + "; after Proposed to Customer: " + proposedOptions + ")");
+    }
+
+    // TODO(TC-NEW-022): the sheet has no Expected Result and its steps run evaluator actions as a Committee member
+    // (Q25); there is no Project Manager account and no idea on a PM's project (Q3/Q25: PROJECT_MANAGER_USERNAME /
+    // PROJECT_MANAGER_PASSWORD, tracking.json projectManagerPrivileges.ideaId). Adtest04 is admin, so "cannot
+    // approve" cannot be checked with it.
+    @Disabled("TC-NEW-022: blocked by Q25 (no Expected Result, no PM idea) and Q3 (no Project Manager account; "
+            + "Adtest04 is admin, so 'cannot approve' can't be checked)")
+    @Test
+    @Tag(Constants.TAG_P1)
+    @Tag(Constants.TAG_FEATURE_TRACKING)
+    @DisplayName("TC-NEW-022 - Verify Project Manager (Rel 5.1) can update Customer Progress only (not full evaluator "
+            + "approve privileges).")
+    @Description("A Project Manager opens Customer Initiative Progress for an approved Client idea on their project "
+            + "and can update it, but cannot approve ideas like an evaluator.")
+    @Story("Let the Project Manager update Customer Progress only")
+    void projectManagerUpdatesCustomerProgressOnly() {
+        // Arrange
+        UserCredentials projectManager = JsonUtils.read(DATA_FILE, "projectManager", UserCredentials.class);
+        ProjectManagerPrivilegesData privileges =
+                JsonUtils.read(DATA_FILE, "projectManagerPrivileges", ProjectManagerPrivilegesData.class);
+
+        // Steps 2-6: sign in and reach the portal
+        signIn(projectManager);
+
+        // Summary: the Project Manager can update Customer Progress of an idea on their project
+        CustomerInitiativeProgressPage progressPage =
+                new CustomerInitiativeProgressPage(driver()).open(privileges.getIdeaId());
+        assertTrue(progressPage.isLoaded(),
+                "Summary: Project Manager can update Customer Progress (CIP tracking form loads; actual URL: "
+                        + progressPage.getCurrentUrl() + ")");
+
+        // TODO(TC-NEW-022): assert the Project Manager cannot approve (no Evaluate / approve control) once Q25
+        // gives the expected UI.
     }
 
     /** Steps 2-6: sign in through ADFS and reach the portal landing page. */

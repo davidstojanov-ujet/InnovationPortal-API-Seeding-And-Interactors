@@ -15,6 +15,7 @@
     "username": "${DEPARTMENT_HEAD_USERNAME}",
     "password": "${DEPARTMENT_HEAD_PASSWORD}"
   },
+  "titlePrefix": "AUTO-P1-ACCELERATOR",
   "routes": {
     "dashboard": "/accelerator-dashboard",
     "ipForm": "/accelerator-form/{id}",
@@ -25,15 +26,17 @@
   "businessImpacts": ["Improved Productivity", "Customer Satisfaction", "Cost Reduction"],
   "clientAccelerator": {
     "testCaseId": "TC-NEW-025",
-    "ideaId": "TODO(Q26): Client idea in Implemented status",
+    "statusPath": ["Proposed to Customer", "Accepted", "Implemented"],
+    "gateStatus": "Implemented",
     "practice": "TODO(Q26): e.g. Digital & Platforms",
-    "rolesThatSeeRadio": "TODO(Q3/Q26)"
+    "rolesThatSeeRadio": "TODO(Q3): Vertical head, Practice head, System Admin"
   },
   "orgAccelerator": {
     "testCaseId": "TC-NEW-026",
-    "ideaId": "TODO(Q26): Org idea in POC Completed status",
+    "statusPath": ["POC Completed"],
+    "gateStatus": "POC Completed",
     "practice": "TODO(Q26)",
-    "rolesThatSeeRadio": "TODO(Q3/Q26)"
+    "rolesThatSeeRadio": "TODO(Q3): Department head, Practice head, System Admin"
   },
   "notificationsAndReport": {
     "testCaseId": "TC-NEW-027",
