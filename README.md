@@ -55,7 +55,7 @@ Automated UI regression tests for the Innovation Portal, covering the 18 Priorit
 3. `./run-tests.sh -Dgroups=P1` (any extra arguments go to Maven, e.g. `-Dtest=SubmitClientIdeaTest`).
 
 `run-tests.sh` loads `.env` and passes `ENV`, `BASE_URL`, `BROWSER` and `HEADED` to Maven as `-Denv`, `-DbaseUrl`, `-Dbrowser` and `-Dheadless`. The role accounts (`EVALUATOR_*`, `ADMIN_*`, ...) default to the employee account until separate accounts exist.
-Idea routing data (employee, customer/project or department, default evaluator, committee members, progress updaters) is in `src/test/resources/testdata/idea-routing.json`.
+Idea routing data (employee, customer/project or department, default evaluator, committee members, progress updaters) is in `src/test/resources/testdata/idea-routing.json`. Its accounts (Adtest15, Adtest08, Adtest09, Adtest10, Rajesh, Satyam Sharma) have their own `<USER>_USERNAME` / `<USER>_PASSWORD` entries in `.env.example`; fill in the passwords in your `.env`.
 
 ## How to run
 
