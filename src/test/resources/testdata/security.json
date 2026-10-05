@@ -6,6 +6,6 @@
   "directUrl": {
     "testCaseId": "TC-NEW-035",
     "route": "/approval-dashboard",
-    "expectedBehaviour": "TODO(Q28): redirect, access-denied text, or empty grid"
+    "expectedBehaviour": "TODO(Q28): not specified. Observed 2026-10-05: Access Denied page (title 'Access Denied | XORNET'), same URL"
   }
 }

@@ -10,7 +10,6 @@ import com.innovationportal.pages.XornetGlobalScreenPage;
 import com.innovationportal.utils.JsonUtils;
 import io.qameta.allure.Description;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,10 +22,7 @@ class ApprovalDashboardAccessTest extends BaseTest {
 
     private static final String DATA_FILE = "security.json";
 
-    // TODO(TC-NEW-035): needs an Employee-only account without evaluator rights (EMPLOYEE_ONLY_USERNAME /
-    // EMPLOYEE_ONLY_PASSWORD, Q4; the configured employee Adtest04 can open the dashboard) and the expected
-    // denial behaviour - redirect, access-denied text or HTTP 403 (Q28; security.json directUrl.expectedBehaviour).
-    @Disabled("TC-NEW-035: blocked by Q4 (no Employee-only account) and Q28 (expected denial behaviour not specified)")
+    // Runs as EMPLOYEE_ONLY (Adtest15, no evaluator rights; Q4 resolved in DEM-81).
     @Test
     @Tag(Constants.TAG_P1)
     @Tag(Constants.TAG_FEATURE_SECURITY)
@@ -57,6 +53,7 @@ class ApprovalDashboardAccessTest extends BaseTest {
         assertFalse(dashboardPage.isLoaded(),
                 "Step 9: Employee cannot open the Approval Dashboard via direct URL (actual URL: "
                         + dashboardPage.getCurrentUrl() + ")");
-        // TODO(TC-NEW-035): assert the specific denial behaviour once Q28 is answered.
+        // TODO(TC-NEW-035): assert the specific denial behaviour once Q28 is answered. Observed on 2026-10-05: the
+        // "Access Denied | XORNET" page at the same URL, without the dashboard form.
     }
 }
