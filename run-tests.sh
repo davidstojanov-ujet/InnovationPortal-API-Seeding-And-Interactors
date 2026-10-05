@@ -24,10 +24,18 @@ if [ -z "${EMPLOYEE_PASSWORD:-}" ]; then
   exit 1
 fi
 
-# Role accounts the test data JSON references: default to the employee account when .env does not set them.
+# Defaults when .env does not set them. All test accounts share the employee password.
+# Role accounts the test data JSON references use the employee account; EMPLOYEE_ONLY is Adtest15 (no evaluator rights).
+[ -n "${EMPLOYEE_ONLY_USERNAME:-}" ] || export 'EMPLOYEE_ONLY_USERNAME=ADTest\Adtest15'
 for role in EVALUATOR PROJECT_MANAGER ADMIN VERTICAL_HEAD PRACTICE_HEAD DEPARTMENT_HEAD EMPLOYEE_ONLY; do
   user_var="${role}_USERNAME"; pass_var="${role}_PASSWORD"
   [ -n "${!user_var:-}" ] || export "$user_var=$EMPLOYEE_USERNAME"
+  [ -n "${!pass_var:-}" ] || export "$pass_var=$EMPLOYEE_PASSWORD"
+done
+# Accounts from the idea routing data.
+for user in ADTEST08 ADTEST09 ADTEST10 ADTEST15; do
+  user_var="${user}_USERNAME"; pass_var="${user}_PASSWORD"
+  [ -n "${!user_var:-}" ] || export "$user_var=ADTest\\Adtest${user#ADTEST}"
   [ -n "${!pass_var:-}" ] || export "$pass_var=$EMPLOYEE_PASSWORD"
 done
 
