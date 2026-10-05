@@ -1,6 +1,8 @@
 package com.innovationportal.pages;
 
 import com.innovationportal.config.ConfigReader;
+import com.innovationportal.constants.Constants;
+import com.innovationportal.utils.WaitUtils;
 import java.util.Optional;
 import java.util.Set;
 import org.openqa.selenium.By;
@@ -32,8 +34,12 @@ public class ApprovalDashboardPage extends BasePage {
     private final By titleLink = By.cssSelector("a[href*='/innovation-portal/idea/']");
     private final By columns = By.cssSelector(".result_row__col");
 
+    /** Long wait for the Filter AJAX, which takes more than the default timeout on a dashboard with many ideas. */
+    private final WaitUtils longWaits;
+
     public ApprovalDashboardPage(WebDriver driver) {
         super(driver);
+        this.longWaits = new WaitUtils(driver, Constants.LONG_TIMEOUT);
     }
 
     /** Opens the dashboard by direct URL (the route is relative to the configured base URL). */
@@ -61,7 +67,7 @@ public class ApprovalDashboardPage extends BasePage {
         type(titleFilter, title);
         WebElement oldContainer = waits.waitForVisible(gridContainer);
         click(filterButton);
-        waits.waitForStale(oldContainer);
+        longWaits.waitForStale(oldContainer);
         waits.waitForVisible(gridContainer);
         try {
             waits.waitFor(d -> !d.findElements(rows).isEmpty());
