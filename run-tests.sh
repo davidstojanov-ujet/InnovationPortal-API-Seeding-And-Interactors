@@ -24,6 +24,13 @@ if [ -z "${EMPLOYEE_PASSWORD:-}" ]; then
   exit 1
 fi
 
+# Role accounts the test data JSON references: default to the employee account when .env does not set them.
+for role in EVALUATOR PROJECT_MANAGER ADMIN VERTICAL_HEAD PRACTICE_HEAD DEPARTMENT_HEAD EMPLOYEE_ONLY; do
+  user_var="${role}_USERNAME"; pass_var="${role}_PASSWORD"
+  [ -n "${!user_var:-}" ] || export "$user_var=$EMPLOYEE_USERNAME"
+  [ -n "${!pass_var:-}" ] || export "$pass_var=$EMPLOYEE_PASSWORD"
+done
+
 headless=true
 [ "${HEADED:-false}" = "true" ] && headless=false
 
