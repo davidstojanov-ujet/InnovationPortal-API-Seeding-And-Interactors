@@ -48,9 +48,18 @@ Automated UI regression tests for the Innovation Portal, covering the 18 Priorit
 └── pom.xml
 ```
 
+## Run it as a new QA
+
+1. Connect the FortiClient VPN (the test environment `https://10.20.3.66/innovation-portal` is only reachable through it).
+2. `cp .env.example .env`. Then set `EMPLOYEE_PASSWORD` in `.env`. Ask the QA manager for the password. `.env` is gitignored: never commit it.
+3. `./run-tests.sh -Dgroups=P1` (any extra arguments go to Maven, e.g. `-Dtest=SubmitClientIdeaTest`).
+
+`run-tests.sh` loads `.env` and passes `ENV`, `BASE_URL`, `BROWSER` and `HEADED` to Maven as `-Denv`, `-DbaseUrl`, `-Dbrowser` and `-Dheadless`. The role accounts (`EVALUATOR_*`, `ADMIN_*`, ...) default to the employee account until separate accounts exist.
+Idea routing data (employee, customer/project or department, default evaluator, committee members, progress updaters) is in `src/test/resources/testdata/idea-routing.json`.
+
 ## How to run
 
-The test account comes from the `EMPLOYEE_*` environment variables listed in [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md). Set them in your shell; never commit them.
+The test account comes from the `EMPLOYEE_*` environment variables listed in [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md). Set them in your shell (or in `.env` for `run-tests.sh`); never commit them.
 
 | Goal | Command |
 |------|---------|
