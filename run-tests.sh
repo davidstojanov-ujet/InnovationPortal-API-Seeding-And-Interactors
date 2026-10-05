@@ -25,8 +25,10 @@ if [ -z "${EMPLOYEE_PASSWORD:-}" ]; then
 fi
 
 # Defaults when .env does not set them. All test accounts share the employee password.
-# Role accounts the test data JSON references use the employee account; EMPLOYEE_ONLY is Adtest15 (no evaluator rights).
+# Role accounts the test data JSON references use the employee account; EMPLOYEE_ONLY is Adtest15 (no evaluator
+# rights) and PROJECT_MANAGER is Adtest08 (TC-NEW-022, DEM-82).
 [ -n "${EMPLOYEE_ONLY_USERNAME:-}" ] || export 'EMPLOYEE_ONLY_USERNAME=ADTest\Adtest15'
+[ -n "${PROJECT_MANAGER_USERNAME:-}" ] || export 'PROJECT_MANAGER_USERNAME=ADTest\Adtest08'
 for role in EVALUATOR PROJECT_MANAGER ADMIN VERTICAL_HEAD PRACTICE_HEAD DEPARTMENT_HEAD EMPLOYEE_ONLY; do
   user_var="${role}_USERNAME"; pass_var="${role}_PASSWORD"
   [ -n "${!user_var:-}" ] || export "$user_var=$EMPLOYEE_USERNAME"

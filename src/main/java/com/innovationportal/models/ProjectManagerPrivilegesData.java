@@ -1,8 +1,9 @@
 package com.innovationportal.models;
 
 /**
- * Project Manager privileges case bound from {@code tracking.json} ({@code projectManagerPrivileges}).
- * {@code ideaId} is an approved Client idea on the Project Manager's project.
+ * Project Manager privileges case bound from {@code tracking.json} ({@code projectManagerPrivileges}):
+ * the Customer Status and comment the Project Manager saves on Customer Initiative Progress. {@code note}
+ * documents how the Project Manager role is played (it is not used by the test).
  *
  * <pre>{@code
  * ProjectManagerPrivilegesData pm = JsonUtils.read("tracking.json", "projectManagerPrivileges",
@@ -12,8 +13,9 @@ package com.innovationportal.models;
 public class ProjectManagerPrivilegesData {
 
     private String testCaseId;
-    private String ideaId;
-    private String expected;
+    private String note;
+    private String customerStatus;
+    private String comment;
 
     public ProjectManagerPrivilegesData() {
     }
@@ -26,19 +28,27 @@ public class ProjectManagerPrivilegesData {
         this.testCaseId = testCaseId;
     }
 
-    public String getIdeaId() {
-        return ideaId;
+    public String getNote() {
+        return note;
     }
 
-    public void setIdeaId(String ideaId) {
-        this.ideaId = ideaId;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    public String getExpected() {
-        return expected;
+    public String getCustomerStatus() {
+        return customerStatus;
     }
 
-    public void setExpected(String expected) {
-        this.expected = expected;
+    public void setCustomerStatus(String customerStatus) {
+        this.customerStatus = customerStatus;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

@@ -20,7 +20,6 @@ import com.innovationportal.utils.JsonUtils;
 import com.innovationportal.utils.RandomDataUtils;
 import io.qameta.allure.Description;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -37,7 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Tracking feature: Customer Status on the Customer Initiative Progress page
  * ({@code /actual_benefit_realization/<id>}) of an approved Client idea. The evaluator account
  * (tracking.json {@code evaluator}, Adtest04 at run time) submits a fresh idea and approves it as setup, then
- * tracks its customer progress in the same session. Customer Status only offers the next allowed states of the
+ * tracks its customer progress in the same session (TC-NEW-022 instead switches users with a new browser session
+ * per user, as ADFS has no logout). Customer Status only offers the next allowed states of the
  * current one, so the tests save statuses one after another and read the options after each save.
  */
 class CustomerInitiativeProgressTest extends BaseTest {
@@ -144,38 +144,74 @@ class CustomerInitiativeProgressTest extends BaseTest {
                         + approvedOptions + "; after Proposed to Customer: " + proposedOptions + ")");
     }
 
-    // TODO(TC-NEW-022): the sheet has no Expected Result and its steps run evaluator actions as a Committee member
-    // (Q25); there is no Project Manager account and no idea on a PM's project (Q3/Q25: PROJECT_MANAGER_USERNAME /
-    // PROJECT_MANAGER_PASSWORD, tracking.json projectManagerPrivileges.ideaId). Adtest04 is admin, so "cannot
-    // approve" cannot be checked with it.
-    @Disabled("TC-NEW-022: blocked by Q25 (no Expected Result, no PM idea) and Q3 (no Project Manager account; "
-            + "Adtest04 is admin, so 'cannot approve' can't be checked)")
+    // TODO(TC-NEW-022): the sheet has no Expected Result (Q25), so the expected UI for "cannot approve" is still
+    // unspecified; the test checks that the Evaluate link is absent and the Evaluation page does not load. There is
+    // no Project Manager account (Q3): by the ticket owner's interpretation in DEM-82, projectManager (Adtest08, a
+    // ClientProgressUpdate user on the Cisco route) plays the Project Manager for a fresh Cisco idea.
     @Test
     @Tag(Constants.TAG_P1)
     @Tag(Constants.TAG_FEATURE_TRACKING)
     @DisplayName("TC-NEW-022 - Verify Project Manager (Rel 5.1) can update Customer Progress only (not full evaluator "
             + "approve privileges).")
-    @Description("A Project Manager opens Customer Initiative Progress for an approved Client idea on their project "
-            + "and can update it, but cannot approve ideas like an evaluator.")
+    @Description("An employee submits a Client idea on the Cisco project and the evaluator approves it, each in their "
+            + "own browser session. The Project Manager then sees no Evaluate action on the idea, saves a Customer "
+            + "Status on Customer Initiative Progress, and cannot open the Evaluation (approve) page by direct URL.")
     @Story("Let the Project Manager update Customer Progress only")
     void projectManagerUpdatesCustomerProgressOnly() {
         // Arrange
+        UserCredentials employee = JsonUtils.read(DATA_FILE, "employeeOnly", UserCredentials.class);
+        UserCredentials evaluator = JsonUtils.read(DATA_FILE, "evaluator", UserCredentials.class);
         UserCredentials projectManager = JsonUtils.read(DATA_FILE, "projectManager", UserCredentials.class);
+        IdeaData ciscoIdea = JsonUtils.read(DATA_FILE, "ciscoClientIdea", IdeaData.class);
+        EvaluationData approve = JsonUtils.read(APPROVAL_DATA_FILE, "approve", EvaluationData.class);
+        ProgressUpdateData update = JsonUtils.read(DATA_FILE, "progressUpdate", ProgressUpdateData.class);
         ProjectManagerPrivilegesData privileges =
                 JsonUtils.read(DATA_FILE, "projectManagerPrivileges", ProjectManagerPrivilegesData.class);
+        IdeaImpact impact = update.getImpact();
 
-        // Steps 2-6: sign in and reach the portal
+        // Setup: the employee submits a Client idea on the Cisco project
+        signIn(employee);
+        String ideaId = submitIdea(ciscoIdea).getIdeaId();
+
+        // Setup: the evaluator approves it in a new browser session (ADFS has no logout)
+        restartBrowser();
+        signIn(evaluator);
+        IdeaDetailPage evaluatorDetailPage = new IdeaDetailPage(driver()).open(ideaId);
+        assertTrue(evaluatorDetailPage.isLoaded(),
+                "Setup: the evaluator opens idea " + ideaId + " (actual URL: "
+                        + evaluatorDetailPage.getCurrentUrl() + ")");
+        approveIdea(evaluatorDetailPage, approve);
+
+        // Steps 2-6: the Project Manager signs in in a new browser session
+        restartBrowser();
         signIn(projectManager);
 
-        // Summary: the Project Manager can update Customer Progress of an idea on their project
-        CustomerInitiativeProgressPage progressPage =
-                new CustomerInitiativeProgressPage(driver()).open(privileges.getIdeaId());
-        assertTrue(progressPage.isLoaded(),
-                "Summary: Project Manager can update Customer Progress (CIP tracking form loads; actual URL: "
-                        + progressPage.getCurrentUrl() + ")");
+        // Summary: the Project Manager has no Evaluate action on the idea
+        IdeaDetailPage detailPage = new IdeaDetailPage(driver()).open(ideaId);
+        assertTrue(detailPage.isLoaded(),
+                "Summary: Project Manager opens the approved idea (actual URL: " + detailPage.getCurrentUrl() + ")");
+        assertFalse(detailPage.isEvaluateLinkDisplayed(),
+                "Summary: Project Manager has no Evaluate action on the idea detail page");
 
-        // TODO(TC-NEW-022): assert the Project Manager cannot approve (no Evaluate / approve control) once Q25
-        // gives the expected UI.
+        // Summary: the Project Manager can update Customer Progress
+        CustomerInitiativeProgressPage progressPage = openProgressPage(ideaId);
+        progressPage.selectCustomerStatus(privileges.getCustomerStatus())
+                .selectActualBenefitOutcomeIfShown(update.getActualBenefitOutcome())
+                .addImpactIfShown(impact.getKey(), impact.getAmount(), impact.getDescription())
+                .enterComment(privileges.getComment());
+        assertTrue(progressPage.waitUntilSaveEnabled(),
+                "Summary: Save is enabled for Customer Status '" + privileges.getCustomerStatus() + "'");
+        IdeaDetailPage savedPage = progressPage.save();
+        assertTrue(savedPage.isLoaded(),
+                "Summary: Customer Progress is saved (actual URL: " + savedPage.getCurrentUrl() + ")");
+        assertEquals(privileges.getCustomerStatus(), openProgressPage(ideaId).getSelectedCustomerStatus(),
+                "Summary: Project Manager can update Customer Progress (the saved Customer Status is kept)");
+
+        // Summary: the Project Manager cannot approve (the Evaluation page does not load by direct URL)
+        EvaluationPage evaluationPage = new EvaluationPage(driver()).open(ideaId);
+        assertFalse(evaluationPage.isLoaded(),
+                "Summary: Project Manager cannot open the evaluation (approve) page (actual URL: "
+                        + evaluationPage.getCurrentUrl() + ")");
     }
 
     /** Steps 2-6: sign in through ADFS and reach the portal landing page. */
@@ -198,7 +234,11 @@ class CustomerInitiativeProgressTest extends BaseTest {
 
     /** Setup: submits a fresh Client idea (submit.json {@code clientIdea}), as in TC-LEGACY-001. */
     private IdeaDetailPage submitIdea() {
-        IdeaData idea = JsonUtils.read(SUBMIT_DATA_FILE, "clientIdea", IdeaData.class);
+        return submitIdea(JsonUtils.read(SUBMIT_DATA_FILE, "clientIdea", IdeaData.class));
+    }
+
+    /** Setup: submits a fresh Client idea with {@code idea}'s data as the signed-in user. */
+    private IdeaDetailPage submitIdea(IdeaData idea) {
         IdeaImpact impact = idea.getImpacts().get(0);
         String title = RandomDataUtils.uniqueString(JsonUtils.read(DATA_FILE, "titlePrefix", String.class));
         IdeaSubmitPage submitPage = new HomePage(driver()).open().clickSubmitIdea();

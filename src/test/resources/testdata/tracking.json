@@ -7,6 +7,10 @@
     "username": "${PROJECT_MANAGER_USERNAME}",
     "password": "${PROJECT_MANAGER_PASSWORD}"
   },
+  "employeeOnly": {
+    "username": "${EMPLOYEE_ONLY_USERNAME}",
+    "password": "${EMPLOYEE_ONLY_PASSWORD}"
+  },
   "titlePrefix": "AUTO-P1-TRACKING",
   "routes": {
     "clientProgress": "/actual_benefit_realization/{id}",
@@ -52,9 +56,31 @@
     "statusPath": ["Proposed to Customer"],
     "expectedOptions": ["In Progress", "Proposed to Customer", "Accepted", "Rejected", "On Hold", "POC Completed", "Implemented"]
   },
+  "ciscoClientIdea": {
+    "testCaseId": "TC-NEW-022",
+    "innovationType": "Client Initiative",
+    "customerName": "Cisco Systems (India) Pvt. Ltd.",
+    "projectName": "XMLCS154",
+    "innovationCategory": "Project area specific Improvement",
+    "domains": ["Solution Architecture & Technology Solutions"],
+    "summary": "Automation P1 idea - brief description",
+    "innovationDetails": "Automation P1 idea - potential solution",
+    "confidential": "No",
+    "impacts": [
+      {
+        "key": "cost-savings-for-customers",
+        "label": "Cost savings for customers",
+        "amount": "1000",
+        "description": "Automation P1 impact description"
+      }
+    ],
+    "businessUseCase": "Automation P1 business use case",
+    "expectedInitialStatus": "Pending Approval"
+  },
   "projectManagerPrivileges": {
     "testCaseId": "TC-NEW-022",
-    "ideaId": "TODO(Q25): idea on the PM's project",
-    "expected": "TODO(Q25)"
+    "note": "Q25/Q3: the ticket owner chose in DEM-82 that projectManager (Adtest08, a ClientProgressUpdate user on the Cisco route) plays the Project Manager for ideas on Cisco project XMLCS154",
+    "customerStatus": "Proposed to Customer",
+    "comment": "Automation P1 Project Manager customer progress update"
   }
 }

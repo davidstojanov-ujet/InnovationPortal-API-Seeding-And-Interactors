@@ -1,5 +1,6 @@
 package com.innovationportal.pages;
 
+import com.innovationportal.config.ConfigReader;
 import com.innovationportal.constants.Constants;
 import com.innovationportal.utils.WaitUtils;
 import java.util.List;
@@ -21,6 +22,7 @@ public class EvaluationPage extends BasePage {
 
     private static final String EVALUATION_URL = ".*/innovation-portal/idea/\\d+/evaluation(?:[?#].*)?$";
     private static final String EVALUATION_PATH = "/evaluation";
+    private static final String IDEA_ROUTE = "/idea/";
 
     private final By form = By.id("idea-evalute-page");
     private final By approveStatus = By.id("edit-idea-status-2");
@@ -44,6 +46,16 @@ public class EvaluationPage extends BasePage {
     public EvaluationPage(WebDriver driver) {
         super(driver);
         this.shortWaits = new WaitUtils(driver, Constants.SHORT_TIMEOUT);
+    }
+
+    /**
+     * Opens the Evaluation page of idea {@code ideaId} by direct URL (the route is relative to the configured base
+     * URL). Without evaluator rights the app shows "Access Denied" at the same URL, so {@link #isLoaded()} then
+     * returns false after the configured timeout (it checks the form, not only the URL).
+     */
+    public EvaluationPage open(String ideaId) {
+        driver.get(ConfigReader.baseUrl() + IDEA_ROUTE + ideaId + EVALUATION_PATH);
+        return this;
     }
 
     /** True once the browser is on {@code /idea/<id>/evaluation} and the evaluation form is visible. */

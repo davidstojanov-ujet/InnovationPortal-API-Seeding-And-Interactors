@@ -28,6 +28,15 @@ public abstract class BaseTest {
         DriverManager.quitDriver();
     }
 
+    /**
+     * Quits the browser and opens a new one on the configured base URL. Used when a test must sign in as another
+     * user: ADFS single sign-on has no working logout, so only a new browser session drops the old user.
+     */
+    protected void restartBrowser() {
+        DriverManager.quitDriver();
+        setUpDriver();
+    }
+
     protected WebDriver driver() {
         return DriverManager.getDriver();
     }

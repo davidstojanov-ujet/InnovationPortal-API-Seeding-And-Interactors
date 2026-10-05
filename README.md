@@ -55,7 +55,7 @@ Automated UI regression tests for the Innovation Portal, covering the 18 Priorit
 3. `./run-tests.sh -Dgroups=P1` (any extra arguments go to Maven, e.g. `-Dtest=SubmitClientIdeaTest`).
 
 `run-tests.sh` loads `.env` and passes `ENV`, `BASE_URL`, `BROWSER` and `HEADED` to Maven as `-Denv`, `-DbaseUrl`, `-Dbrowser` and `-Dheadless`. The role accounts (`EVALUATOR_*`, `ADMIN_*`, ...) default to the employee account until separate accounts exist.
-Idea routing data (employee, customer/project or department, default evaluator, committee members, progress updaters) is in `src/test/resources/testdata/idea-routing.json`. Its accounts (Adtest15, Adtest08, Adtest09, Adtest10, Rajesh, Satyam Sharma) have their own `<USER>_USERNAME` / `<USER>_PASSWORD` entries in `.env.example`. All test accounts share one password, so they reuse `EMPLOYEE_PASSWORD`: you only type it once. `EMPLOYEE_ONLY_*` (an employee without evaluator rights, used by TC-NEW-035) is Adtest15.
+Idea routing data (employee, customer/project or department, default evaluator, committee members, progress updaters) is in `src/test/resources/testdata/idea-routing.json`. Its accounts (Adtest15, Adtest08, Adtest09, Adtest10, Rajesh, Satyam Sharma) have their own `<USER>_USERNAME` / `<USER>_PASSWORD` entries in `.env.example`. All test accounts share one password, so they reuse `EMPLOYEE_PASSWORD`: you only type it once. `EMPLOYEE_ONLY_*` (an employee without evaluator rights, used by TC-NEW-035 and TC-NEW-022) is Adtest15, and `PROJECT_MANAGER_*` (TC-NEW-022) is Adtest08.
 
 ## How to run
 
