@@ -27,6 +27,9 @@ public class EvaluationPage extends BasePage {
     private final By rejectStatus = By.id("edit-idea-status-3");
     private final By holdStatus = By.id("edit-idea-status-4");
     private final By reason = By.id("edit-admin-comment");
+    // Reject rebuilds "Additional Comments" by AJAX as "Please provide the reason for reject the idea" with a
+    // random id suffix, so it is located by name. Submit Evaluation stays disabled for Reject until it is filled.
+    private final By rejectReason = By.name("remarks");
     private final By saveAsDraftButton = By.id("edit-draft-evalution");
     private final By submitEvaluationButton = By.id("edit-submit-evalution");
     private final By impactCheckboxes = By.cssSelector("#idea-evalute-page input[type='checkbox'][id^='edit-impect-of-idea-']");
@@ -140,12 +143,22 @@ public class EvaluationPage extends BasePage {
         return this;
     }
 
-    public boolean isReasonFieldDisplayed() {
-        return isDisplayed(reason);
-    }
-
     public String getReasonValue() {
         return waits.waitForVisible(reason).getAttribute("value");
+    }
+
+    /** Fills "Please provide the reason for reject the idea" (shown after {@link #selectReject()}) and blurs it. */
+    public EvaluationPage enterRejectReason(String value) {
+        typeAndBlur(rejectReason, value);
+        return this;
+    }
+
+    public boolean isRejectReasonDisplayed() {
+        return isDisplayed(rejectReason);
+    }
+
+    public String getRejectReasonValue() {
+        return waits.waitForVisible(rejectReason).getAttribute("value");
     }
 
     public boolean isSaveAsDraftEnabled() {

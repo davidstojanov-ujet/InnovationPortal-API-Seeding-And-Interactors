@@ -249,13 +249,14 @@ class IdeaEvaluationTest extends BaseTest {
                 "Step 11: Evaluation page opens (actual URL: " + evaluationPage.getCurrentUrl() + ")");
         evaluationPage.selectReject();
         assertTrue(evaluationPage.isRejectSelected(), "Step 11: Reject is selected");
-        assertTrue(evaluationPage.isReasonFieldDisplayed(), "Step 11: The mandatory reason field is shown for Reject");
+        assertTrue(evaluationPage.isRejectReasonDisplayed(), "Step 11: The mandatory reason field is shown for Reject");
         assertFalse(evaluationPage.isSubmitEvaluationEnabled(),
                 "Step 11: Reject blocked without mandatory comment (Submit Evaluation disabled)");
 
         // Step 12: with the mandatory comment, Reject can be submitted
-        evaluationPage.enterReason(reject.getReason());
-        assertEquals(reject.getReason(), evaluationPage.getReasonValue(), "Step 12: The reason field accepts the comment");
+        evaluationPage.enterRejectReason(reject.getReason());
+        assertEquals(reject.getReason(), evaluationPage.getRejectReasonValue(),
+                "Step 12: The reason field accepts the comment");
         assertTrue(evaluationPage.waitUntilSubmitEvaluationEnabled(),
                 "Step 12: With the mandatory comment entered, Reject can be submitted (Submit Evaluation enabled)");
         // TODO(TC-NEW-013): final reject outcome/message not specified (Q24)
